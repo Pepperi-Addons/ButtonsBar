@@ -1,0 +1,29 @@
+<div class="card-editor-container">
+    <div>
+        <pep-button classNames="lock-events" sizeType="xs" iconName="system_move"></pep-button>
+    </div>
+    <div *ngIf="title !== ''" class="title-container">
+        <span class="body-sm ellipsis">{{id + 1}}.&nbsp;</span>
+        <span class="body-sm color-link bold ellipsis" title="">Title</span>
+    </div>
+    <div class="actions" *ngIf="showActions">
+        <pep-button classNames="caution" sizeType="xs" iconName="system_bin" (buttonClick)="onRemoveClick();"></pep-button>
+        <pep-button *ngIf="true" sizeType="xs" iconName="arrow_down" (buttonClick)="onEditClick();"></pep-button>
+        <pep-button *ngIf="true" sizeType="xs" iconName="arrow_up" (buttonClick)="onEditClick();"></pep-button>
+    </div>
+    <div class="editorCont" *ngIf="id == selectedButton"> 
+        <pep-checkbox class="checkbox-as-title" 
+                      [value]="configuration?.Buttons[id].Label?.UseLabel || ''" 
+                      [label]="'EDITOR.CONTENT.TEXT' | translate" 
+                      [renderTitle]="false" 
+                      (valueChange)="onFieldChange('Label.UseLabel',$event)">
+        </pep-checkbox>
+        <pep-textbox [label]="'EDITOR.GENERAL.WIDTH' | translate" 
+                      [disabled]="!configuration?.Buttons[id].Label.UseLabel"
+                      [value]="configuration?.Buttons[id]?.Label?.Label || ''" 
+                      (valueChange)="onFieldChange('Label.Label',$event)">
+        </pep-textbox>
+        <label class="body-xs normal">{{'IMAGE_EDITOR.CHOOSE_FLOW_ONCLICK_DESC' | translate}}</label>
+        <pep-button class="script-button" [value]="cardFlowName ? cardFlowName : ('IMAGE_EDITOR.CHOOSE_FLOW' | translate)" (buttonClick)="openFlowPickerDialog();"></pep-button> -->
+    </div>
+</div>

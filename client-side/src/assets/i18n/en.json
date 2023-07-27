@@ -1,0 +1,50 @@
+{
+   "EDITOR": {
+        "TABS": {
+            "GENERAL": "General",
+            "CONTENT": "Content"
+        },
+        "GENERAL":{
+            "LAYOUT": "Layout",
+            "MAX_COLUMNS": "Max column",
+            "GAP": "Gap",
+            "WIDTH": "Width",
+            "WIDTH_TYPE": "Choose width type",
+            "WIDTH_TYPES": {
+                "DYNAMIC": "Dynamic",
+                "SET": "Set",
+                "STRETCH": "Stretch"
+            },
+            "SET_WIDTH": "Set width (rem)",
+            "ALIGN": "Align",
+            "VERTICAL_POS": "Vertical position",
+            "VERTICAL_ALIGN": {
+                "TOP": "Top",
+                "MIDDLE": "Middle",
+                "BOTTOM": "Bottom"
+            },
+            "HORIZONTAL_POS": "Horizontal position",
+            "BUTTON_SIZE": "Button size",
+            "CHOOSE_BUTTON_SIZE": "Choose button size"
+        },
+        "CONTENT":{
+            "BUTTONS": "Buttons",
+            "TEXT": "Text",
+            "BUTTON_TEXT": "Button test",
+            "STYLE": "Style",
+            "CHOOSE_STYLE": "Choose button style",
+            "ICON": "Icon",
+            "CHOOSE_ICON_STYLE": "Choose icon style",
+            "ICON_POSITION": "Choose icon position",
+            "BADGE": "Badge",
+            "LINK_BADGE": "Link the badge",
+            "ON_CLICK_FLOW": "On click flow",
+            "FLOW_DESCRIPTION": "Choose flow to run when button click",
+            "CHOOSE_FLOW": "Choose flow",
+            "CUNSUMER": "Cunsumer",
+            "SELECT_CUNSUMER": "Select a cunsumer",
+            "ADD_BUTTON": "Add new button"
+        }
+
+   }
+}
