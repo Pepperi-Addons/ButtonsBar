@@ -9,12 +9,12 @@
                     [disabled]="false" 
                     [value]="configuration?.ButtonsBarConfig?.Structure?.MaxColumns"
                     [background]="'RGBA(0,0,0,50%)'"
-                    (inputChange)="onFieldChange('Structure.MaxColumns',$event)">
+                    (inputChange)="onFieldChange('MaxColumns',$event)">
             </pep-slider>
         </div>
         <pep-group-buttons-settings [groupType]="'sizes'" [subHeader]="'EDITOR.GENERAL.GAP' | translate"
                         [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Gap" [useNone]="true" [excludeKeys]="['xs','xl','xxl']"
-                        (btnkeyChange)="onFieldChange('Structure.Gap',$event)">
+                        (btnkeyChange)="onFieldChange('Gap',$event)">
         </pep-group-buttons-settings>
     
             <pep-group-buttons-settings [groupType]="'custom'" [btnsArray]="widthTypes" [header]="'EDITOR.GENERAL.WIDTH' | translate"
@@ -23,8 +23,8 @@
             </pep-group-buttons-settings>
             
     
-        <pep-textbox [label]="'EDITOR.GENERAL.WIDTH' | translate" type="real" [disabled]="configuration.ButtonsBarConfig.Structure.WidthType !== 'set'"
-                    [value]="configuration?.ButtonsBarConfig?.Structure?.Width || 8" (valueChange)="onFieldChange('Structure?.Width',$event)">
+        <pep-textbox [label]="'EDITOR.GENERAL.SET_WIDTH' | translate" type="real" [disabled]="configuration?.ButtonsBarConfig?.Structure?.WidthType !== 'set'"
+                    [value]="configuration?.ButtonsBarConfig?.Structure?.Width || 8" (valueChange)="onFieldChange('Width',$event)">
         </pep-textbox>
 
         <pep-group-buttons-settings [groupType]="'custom'" 
@@ -32,31 +32,36 @@
                                     [header]="'EDITOR.GENERAL.ALIGN' | translate"
                                     [subHeader]="'EDITOR.GENERAL.VERTICAL_POS' | translate" 
                                     [excludeKeys]="['center']"
-                                    [btnKey]="configuration.ButtonsBarConfig.Structure.Alignment.Vertical">
+                                    [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Vertical || 'middle'">
         </pep-group-buttons-settings>
 
         <pep-group-buttons-settings [groupType]="'horizontal-align'" 
                                     [subHeader]="'EDITOR.GENERAL.HORIZONTAL_POS' | translate"
-                                    [btnKey]="configuration.ButtonsBarConfig.Structure.Alignment.Horizontal"
-                                    (btnkeyChange)="onFieldChange('Structure.Alignment.Horizontal',$event)">
+                                    [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Horizontal || 'left'"
+                                    (btnkeyChange)="onFieldChange('Alignment.Horizontal',$event)">
         </pep-group-buttons-settings>
 
         <pep-group-buttons-settings [groupType]="'sizes'" 
                                     [header]="'EDITOR.GENERAL.BUTTON_SIZE' | translate" 
                                     [subHeader]="'EDITOR.GENERAL.CHOOSE_BUTTON_SIZE' | translate"
-                                    [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Gap" 
-                                    [useNone]="true" 
+                                    [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Size" 
+                                    [useNone]="false" 
                                     [excludeKeys]="['xs','xl','xxl']"
-                                    (btnkeyChange)="onFieldChange('Structure.Gap',$event)">
+                                    (btnkeyChange)="onFieldChange('Size',$event)">
         </pep-group-buttons-settings>
+        <div>
+            <label class="body-lg bold ellipsis">{{'EDITOR.GENERAL.ON_LOAD_FLOW' | translate}}</label>
+            <label class="body-xs normal">{{'EDITOR.GENERAL.FLOW_DESCRIPTION' | translate}}</label>
+            <pep-button class="script-button" [value]="onloadFlowName ? onloadFlowName : ('EDITOR.GENERAL.CHOOSE_FLOW' | translate)" (buttonClick)="openFlowPickerDialog();"></pep-button>
+         </div>
     </mat-tab>
     <mat-tab cdkDropListGroup label="{{'EDITOR.TABS.CONTENT' | translate}}">
         <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BUTTONS' | translate}}</label>
         <div (cdkDropListDropped)="drop($event)"  cdkDropList>
-            <button-editor *ngFor =" let num of [1,2,3]; let currentButton = index" 
+            <button-editor *ngFor ="let btn of configuration.Buttons; let currentButton = index" 
                 [id]="currentButton" [selectedButton]="selectedButton" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
                 [isDraggable]="true" (editClick)='onButtonEditClick($event);' (removeClick)='onButtonRemoveClick($event);'
-                [configuration]="configuration" 
+                [configuration]="btn"
                 cdkDrag  style="cursor: grab;" (cdkDragStarted)="onDragStart($event)" (cdkDragEnded)="onDragEnd($event)">
             </button-editor>
         </div>

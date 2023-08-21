@@ -1,1 +1,19 @@
-Block works...
+<div class="btn-container"
+     [ngStyle]="getStyles()"
+     [ngClass]="['gap-'+ configuration?.ButtonsBarConfig?.Structure?.Gap || 'none']">
+        <pep-button *ngFor ="let btn of configuration?.Buttons || []; let currentButton = index" 
+                    [style.width]="btnWidth"
+                    [iconName]="btn?.Icon?.UseIcon ? btn.Icon.Name : ''"
+                    [iconPosition]="btn?.Icon?.UseIcon ? btn?.Icon?.Position : 'end'"
+                    [value]="btn?.Label?.UseLabel ? btn.Label.Label : ''" 
+                    [sizeType]="configuration?.ButtonsBarConfig?.Structure?.Size || 'md'"
+                    [styleType]="btn?.Style || 'weak'"
+                    matBadgePosition="above after" 
+                    [matBadgeSize]="configuration?.ButtonsBarConfig?.Structure?.Size == 'sm' ? 'small' : configuration?.ButtonsBarConfig?.Structure?.Size == 'md' ? 'medium' : 'large'"
+                    matBadgeOverlap=true matBadgeColor="warn"
+                    [matBadge]="btn?.Badge?.UseBadge && btn?.Badge?.LinkBadge ? btn.Badge.LinkBadge : ''"
+                    (click)="onButtonClick(btn)">
+        </pep-button>
+       
+        
+</div>

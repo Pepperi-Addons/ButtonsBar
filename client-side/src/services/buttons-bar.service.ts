@@ -45,4 +45,16 @@ export class ButtonsBarService {
             return flowName;
         }
      }
+
+     changeCursorOnDragStart() {
+        document.body.classList.add('inheritCursors');
+        document.body.style.cursor = 'grabbing';
+    }
+
+    changeCursorOnDragEnd() {
+        document.body.classList.remove('inheritCursors');
+        document.body.style.cursor = 'unset';
+    }
+
+
 }

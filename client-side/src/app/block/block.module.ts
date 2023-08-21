@@ -3,11 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TranslateLoader, TranslateModule, TranslateService, TranslateStore } from '@ngx-translate/core';
-
+import { PepButtonModule } from '@pepperi-addons/ngx-lib/button';
 import { PepAddonService } from '@pepperi-addons/ngx-lib';
 import { BlockComponent } from './index';
 import { config } from '../app.config';
+import { PepIconRegistry, pepIconArrowDown, pepIconBarndPepperi } from '@pepperi-addons/ngx-lib/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 
+const pepIcons = [
+    pepIconArrowDown,
+    pepIconBarndPepperi
+]
 export const routes: Routes = [
     {
         path: '',
@@ -19,6 +25,9 @@ export const routes: Routes = [
     declarations: [BlockComponent],
     imports: [
         CommonModule,
+        PepButtonModule,
+        MatBadgeModule,
+        
         TranslateModule.forChild({
             loader: {
                 provide: TranslateLoader,
@@ -38,8 +47,10 @@ export const routes: Routes = [
 export class BlockModule {
     constructor(
         translate: TranslateService,
-        private pepAddonService: PepAddonService
-    ) {
-        this.pepAddonService.setDefaultTranslateLang(translate);
-    }
+        private pepAddonService: PepAddonService,
+        private pepIconRegistry: PepIconRegistry)
+        {
+            this.pepIconRegistry.registerIcons(pepIcons);
+            this.pepAddonService.setDefaultTranslateLang(translate);
+        }
 }

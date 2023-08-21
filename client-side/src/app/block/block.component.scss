@@ -1,0 +1,25 @@
+@use '@pepperi-addons/ngx-lib/src/core/style/abstracts/variables' as variables;
+
+.btn-container{
+    height: inherit;
+
+    &.gap-xs{
+        gap: variables.$spacing-xs;
+    }
+    &.gap-sm{
+        gap: variables.$spacing-sm;
+    }
+    &.gap-md{
+        gap: variables.$spacing-md;
+    }
+    &.gap-lg{
+        gap: variables.$spacing-lg;
+    }
+    &.gap-xl{
+        gap: variables.$spacing-xl;
+    }
+
+    ::ng-deep .mat-badge-content{
+        z-index: 1;
+    }
+}

@@ -5,6 +5,7 @@
             "CONTENT": "Content"
         },
         "GENERAL":{
+            "BUTTON": "Button",
             "LAYOUT": "Layout",
             "MAX_COLUMNS": "Max column",
             "GAP": "Gap",
@@ -25,24 +26,37 @@
             },
             "HORIZONTAL_POS": "Horizontal position",
             "BUTTON_SIZE": "Button size",
-            "CHOOSE_BUTTON_SIZE": "Choose button size"
+            "CHOOSE_BUTTON_SIZE": "Choose button size",
+            "ON_LOAD_FLOW": "On load flow",
+            "FLOW_DESCRIPTION": "Choose on load flow",
+            "CHOOSE_FLOW": "Choose flow"
         },
         "CONTENT":{
             "BUTTONS": "Buttons",
             "TEXT": "Text",
-            "BUTTON_TEXT": "Button test",
+            "BUTTON_TEXT": "Button label",
             "STYLE": "Style",
             "CHOOSE_STYLE": "Choose button style",
-            "ICON": "Icon",
-            "CHOOSE_ICON_STYLE": "Choose icon style",
-            "ICON_POSITION": "Choose icon position",
+            "STYLES":{
+                "WEAK": "Weak",
+                "REGULAR": "Regular",
+                "STRONG": "Strong"
+            },
+            "ICON": {
+                "TITLE": "Icon",
+                "CHOOSE_ICON": "Choose icon",
+                "CHOOSE_POSITION": "Choose icon position",
+                "POSITION": {
+                    "START": "Start",
+                    "END": "End"
+                }
+            },
             "BADGE": "Badge",
             "LINK_BADGE": "Link the badge",
             "ON_CLICK_FLOW": "On click flow",
             "FLOW_DESCRIPTION": "Choose flow to run when button click",
-            "CHOOSE_FLOW": "Choose flow",
-            "CUNSUMER": "Cunsumer",
-            "SELECT_CUNSUMER": "Select a cunsumer",
+            "CONSUMER": "Cunsumer",
+            "SELECT_CONSUMER": "Select a cunsumer",
             "ADD_BUTTON": "Add new button"
         }
 

@@ -5,6 +5,7 @@ import { PepAddonService } from '@pepperi-addons/ngx-lib';
 import { BlockEditorComponent } from './index';
 import { ButtonEditorModule } from '../component/button-editor/button-editor.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PepSliderModule } from '@pepperi-addons/ngx-lib/slider';
 import { PepButtonModule } from '@pepperi-addons/ngx-lib/button';
 import { PepTextboxModule } from '@pepperi-addons/ngx-lib/textbox';
@@ -23,7 +24,8 @@ import { config } from '../app.config';
         CommonModule,
         MatTabsModule,
         ButtonEditorModule,
-
+        DragDropModule,
+        
         PepSliderModule,
         PepGroupButtonsModule,
         PepGroupButtonsSettingsModule,
