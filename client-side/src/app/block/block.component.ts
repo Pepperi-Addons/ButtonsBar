@@ -45,6 +45,7 @@ export class BlockComponent implements OnInit {
     }
 
     onButtonClick(event){
+        
        const flowData = event.Flow || null;
        const parameters = {
             ButtonConfiguration: this.configuration
