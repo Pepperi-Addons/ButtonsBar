@@ -15,6 +15,7 @@ router.get('/test', (req, res) => {
 
 /**********************************  client events starts /**********************************/
 pepperi.events.intercept(CLIENT_ACTION_ON_BUTTONS_BAR_CLICK as any, {}, async (data): Promise<any> => {
+    debugger;
     const cpiService = new ButtonsBarCpiService();
     const res: any = await cpiService.getOptionsFromFlow(data.flow, data.parameters, data );
     return res;

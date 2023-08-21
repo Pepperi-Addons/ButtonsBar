@@ -4,7 +4,7 @@ import { IButtonsBar, IHostObject } from '../buttons-bar.model';
 import { CLIENT_ACTION_ON_BUTTONS_BAR_CLICK } from 'shared';
 
 @Component({
-    selector: 'page-block',
+    selector: 'page-block', 
     templateUrl: './block.component.html',
     styleUrls: ['./block.component.scss']
 })
@@ -45,12 +45,10 @@ export class BlockComponent implements OnInit {
     }
 
     onButtonClick(event){
-        debugger;
        const flowData = event.Flow || null;
        const parameters = {
             ButtonConfiguration: this.configuration
         }
-        
         if(flowData){
         // Parse the params if exist.
         // const params = this.getScriptParams(event.ScriptData); 
@@ -117,13 +115,13 @@ export class BlockComponent implements OnInit {
                 'align-items': this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical == 'middle' ? 'center' : this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical
             };
         }
-        else{
-            return {
-                display: 'grid',
-                'grid-template-columns': `repeat(${this.configuration.ButtonsBarConfig.Structure.MaxColumns}, 2)`,
-                'justify-content': 'left',
-                'align-items': this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical  == 'middle' ? 'center' : this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical
-              };
-        }
+        // else{
+        //     return {
+        //         display: 'grid',
+        //         'grid-template-columns': `repeat(${this.configuration.ButtonsBarConfig.Structure.MaxColumns}, 2)`,
+        //         'justify-content': 'left',
+        //         'align-items': this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical  == 'middle' ? 'center' : this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical
+        //       };
+        // }
     }
 }

@@ -16,7 +16,7 @@ export class Alignment {
 }
 
 export class ButtonLabel {
-    UseLabel: boolean = false;
+    UseLabel: boolean = true;
     Label: string = '';
 }
 

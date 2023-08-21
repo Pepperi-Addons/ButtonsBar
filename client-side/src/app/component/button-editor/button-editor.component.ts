@@ -194,10 +194,7 @@ export class ButtonEditorComponent implements OnInit {
                 if (event.action === 'on-done') {
                         const base64Flow = btoa(JSON.stringify(event.data));
                         this.configuration['Flow'] = base64Flow;
-                        debugger;
-                        //this.configuration[keyObj[0]][keyObj[1]] = value;
                         this.updateHostObjectField(`Buttons[${this.id}]['Flow']`, base64Flow);
-                        //this.updateHostObject(true);
                         this.dialogRef.close();
                         this.btnFlowName = await this.buttonsBarService.getFlowName(event.data.FlowKey) || undefined;
                 } else if (event.action === 'on-cancel') {

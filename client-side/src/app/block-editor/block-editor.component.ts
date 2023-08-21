@@ -54,8 +54,10 @@ export class BlockEditorComponent implements OnInit {
         
     }
 
-    ngOnInit() {
+    async ngOnInit(): Promise<void> {
 
+        const desktopTitle = await this.translate.get('SLIDESHOW.HEIGHTUNITS_REM').toPromise();
+        
         if (!this.configuration) {
             this.loadDefaultConfiguration();
         }
@@ -72,14 +74,16 @@ export class BlockEditorComponent implements OnInit {
             { key: 'end', value: this.translate.instant('EDITOR.GENERAL.VERTICAL_ALIGN.BOTTOM'), callback: (event: any) => this.onFieldChange('Alignment.Vertical',event) }
         ]
 
-        this.blockLoaded = true;
-    }
-
-    async ngOnChanges(e: any): Promise<void> {
         if(this.configuration?.ButtonsBarConfig?.OnLoadFlow){
             const flow = JSON.parse(atob(this.configuration.ButtonsBarConfig.OnLoadFlow));
             this.onloadFlowName = await this.buttonsBarService.getFlowName(flow.FlowKey);
         }
+
+        this.blockLoaded = true;
+    }
+
+    async ngOnChanges(e: any): Promise<void> {
+       
     }
 
     onFieldChange(key, event){
@@ -198,7 +202,6 @@ export class BlockEditorComponent implements OnInit {
 
     openFlowPickerDialog() {
         const flow = this.configuration?.ButtonsBarConfig?.OnLoadFlow ? JSON.parse(atob(this.configuration.ButtonsBarConfig.OnLoadFlow)) : null;
-        debugger;
         let hostObj = {};
         if(flow){
             hostObj = { 

@@ -57,8 +57,8 @@
     </mat-tab>
     <mat-tab cdkDropListGroup label="{{'EDITOR.TABS.CONTENT' | translate}}">
         <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BUTTONS' | translate}}</label>
-        <div (cdkDropListDropped)="drop($event)"  cdkDropList>
-            <button-editor *ngFor ="let btn of configuration.Buttons; let currentButton = index" 
+        <div *ngIf="configuration?.Buttons" (cdkDropListDropped)="drop($event)"  cdkDropList>
+            <button-editor *ngFor ="let btn of configuration?.Buttons; let currentButton = index" 
                 [id]="currentButton" [selectedButton]="selectedButton" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
                 [isDraggable]="true" (editClick)='onButtonEditClick($event);' (removeClick)='onButtonRemoveClick($event);'
                 [configuration]="btn"
