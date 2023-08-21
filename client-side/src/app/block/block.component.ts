@@ -45,10 +45,10 @@ export class BlockComponent implements OnInit {
     }
 
     onButtonClick(event){
-        
+
        const flowData = event.Flow || null;
        const parameters = {
-            ButtonConfiguration: this.configuration
+            ButtonConfiguration: event
         }
         if(flowData){
         // Parse the params if exist.
@@ -59,11 +59,10 @@ export class BlockComponent implements OnInit {
                         eventKey: CLIENT_ACTION_ON_BUTTONS_BAR_CLICK,
                         eventData: { flow: flowData, parameters: parameters },
                         completion: (res: any) => {
-                                if (res) {
-                                    debugger;
+                                if (res?.configuration && Object.keys(res.configuration).length > 0) {
+                                    this.configuration.Buttons[event.id] = {...this.configuration.Buttons[event.id], ...res.configuration};
                                 } else {
                                     // Show default error.
-                                    debugger;
                                 }
                             }
                     }
@@ -86,8 +85,6 @@ export class BlockComponent implements OnInit {
             const maxColumns = btnStructure?.MaxColumns || 2;
             const spacing = gap == 'none' ? '0px' : '(var(--pep-spacing-'+ gap +') * '+ (maxColumns - 1) +')';
 
-            // this.columnTemplate = 'fr '.repeat(btnStructure.MaxColumns);
-            // debugger;
             switch(btnStructure.WidthType){
                 case 'set': {
                     this.btnWidth = btnStructure.Width.toString() + 'rem';

@@ -164,22 +164,16 @@ export class ButtonEditorComponent implements OnInit {
                     FlowParams: flow.FlowParams 
                 },
                 fields: {
-                    OnLoad: {
+                    ButtonConfiguration: {
                         Type: 'Object',
-                    },
-                    Test: {
-                        Type: 'String'
                     }
                 }
             };
         } else{
             hostObj = { 
                 fields: {
-                        OnLoad: {
+                    ButtonConfiguration: {
                             Type: 'Object',
-                        },
-                        Test: {
-                            Type: 'String'
                         }
                     },
                 }
