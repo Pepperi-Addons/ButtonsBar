@@ -8,14 +8,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PepSliderModule } from '@pepperi-addons/ngx-lib/slider';
 import { PepButtonModule } from '@pepperi-addons/ngx-lib/button';
+import { PepFieldTitleModule } from '@pepperi-addons/ngx-lib/field-title';
 import { PepTextboxModule } from '@pepperi-addons/ngx-lib/textbox';
-import { PepCheckboxModule } from '@pepperi-addons/ngx-lib/checkbox';
-import { PepSelectModule } from '@pepperi-addons/ngx-lib/select';
+import { PepFlowPickerButtonModule } from '@pepperi-addons/ngx-composite-lib/flow-picker-button';
 import { PepGroupButtonsModule } from '@pepperi-addons/ngx-lib/group-buttons';
 import { PepGroupButtonsSettingsModule } from '@pepperi-addons/ngx-composite-lib/group-buttons-settings';
-import { PepColorModule } from '@pepperi-addons/ngx-lib/color';
-import { PepImageModule } from '@pepperi-addons/ngx-lib/image';
-import { PepTextareaModule, } from '@pepperi-addons/ngx-lib/textarea';
 import { config } from '../app.config';
 
 @NgModule({
@@ -25,9 +22,10 @@ import { config } from '../app.config';
         MatTabsModule,
         ButtonEditorModule,
         DragDropModule,
-        
+        PepFlowPickerButtonModule,
         PepSliderModule,
         PepGroupButtonsModule,
+        PepFieldTitleModule,
         PepGroupButtonsSettingsModule,
         PepTextboxModule,
         PepButtonModule,

@@ -20,6 +20,7 @@ export class BlockEditorComponent implements OnInit {
                 this._configuration = value.configuration;
                 if(value.configurationSource && Object.keys(value.configuration).length > 0){
                     this.configurationSource = value.configurationSource;
+                    this.prepareFlowHostObject();
                 }  
         } else {
             // TODO - NEED TO ADD DEFAULT CARD
@@ -37,13 +38,14 @@ export class BlockEditorComponent implements OnInit {
     }
 
     private blockLoaded = false;
-    public onloadFlowName = undefined;
     public configurationSource: IButtonsBar;
     public widthTypes: Array<PepButton> = [];
     public verticalAlign : Array<PepButton> = [];
     public selectedButton: number = 0;
     
     private dialogRef: MatDialogRef<any>;
+
+    flowHostObject;
 
     @Output() hostEvents: EventEmitter<any> = new EventEmitter<any>();
 
@@ -74,11 +76,6 @@ export class BlockEditorComponent implements OnInit {
             { key: 'end', value: this.translate.instant('EDITOR.GENERAL.VERTICAL_ALIGN.BOTTOM'), callback: (event: any) => this.onFieldChange('Alignment.Vertical',event) }
         ]
 
-        if(this.configuration?.ButtonsBarConfig?.OnLoadFlow){
-            const flow = JSON.parse(atob(this.configuration.ButtonsBarConfig.OnLoadFlow));
-            this.onloadFlowName = await this.buttonsBarService.getFlowName(flow.FlowKey);
-        }
-
         this.blockLoaded = true;
     }
 
@@ -103,6 +100,7 @@ export class BlockEditorComponent implements OnInit {
     private loadDefaultConfiguration() {
         this._configuration = this.getDefaultHostObject();
         this.updateHostObject();
+        this.prepareFlowHostObject();
     }
 
     private getDefaultHostObject(): IButtonsBar {
@@ -200,47 +198,28 @@ export class BlockEditorComponent implements OnInit {
         this.buttonsBarService.changeCursorOnDragStart();
     }
 
-    openFlowPickerDialog() {
-        const flow = this.configuration?.ButtonsBarConfig?.OnLoadFlow ? JSON.parse(atob(this.configuration.ButtonsBarConfig.OnLoadFlow)) : null;
-        let hostObj = {};
-        if(flow){
-            hostObj = { 
-                runFlowData: { 
-                    FlowKey: flow.FlowKey, 
-                    FlowParams: flow.FlowParams 
-                },
-                fields: {
-                    OnLoad: {
-                        Type: 'Object'
-                    }
-                }
-            };
-        } else{
-            hostObj = { 
-                fields: {
-                        OnLoad: {
-                            Type: 'Object'
-                        }
-                    }
-                }
-        }
+    private prepareFlowHostObject() {
+        this.flowHostObject = {};
+        const runFlowData = this.configuration?.ButtonsBarConfig?.OnLoadFlow  ?  JSON.parse(atob(this.configuration.ButtonsBarConfig.OnLoadFlow)) : null;
 
-        this.dialogRef = this.addonBlockLoaderService.loadAddonBlockInDialog({
-            container: this.viewContainerRef,
-            name: 'FlowPicker',
-            size: 'large',
-            hostObject: hostObj,
-            hostEventsCallback: async (event) => {
-                if (event.action === 'on-done') {
-                        const base64Flow = btoa(JSON.stringify(event.data));
-                        this.configuration.ButtonsBarConfig.OnLoadFlow = base64Flow;
-                        this.updateHostObjectField(`ButtonsBarConfig.OnLoadFlow`, base64Flow);
-                        this.onloadFlowName = await this.buttonsBarService.getFlowName(event.data.FlowKey);
-                        this.dialogRef.close();
-                } else if (event.action === 'on-cancel') {
-                        this.dialogRef.close();
-                }
-            }
-        });
+        const fields = {};
+
+        if (runFlowData) {
+            this.buttonsBarService.flowDynamicParameters.forEach((value, key) => {
+                fields[key] = {
+                    Type: value || 'String'
+                };
+            });
+        }
+        
+        this.flowHostObject['runFlowData'] = runFlowData?.FlowKey ? runFlowData : undefined;
+        this.flowHostObject['fields'] = fields;
+    }
+
+    onFlowChange(flowData: any) {
+        const base64Flow = btoa(JSON.stringify(flowData));
+
+        this.configuration.ButtonsBarConfig.OnLoadFlow = base64Flow;
+        this.updateHostObjectField(`ButtonsBarConfig.OnLoadFlow`, base64Flow);
     }
 }

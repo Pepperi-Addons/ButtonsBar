@@ -70,10 +70,5 @@ export class ButtonEditor {
     Style: PepStyleType = 'weak';
     Icon: ButtonIcon = new ButtonIcon();
     Badge: ButtonBadge = new ButtonBadge();
-    Consumer: string = '';
-    /*Title: string = "defaultTitle";
-    Description: string = "defaultDescription";
-    AssetKey: string = '';
-    AssetURL: string = '';*/
     Flow: any;
 }

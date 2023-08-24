@@ -56,14 +56,13 @@
                 (valueChange)="onFieldChange('Badge.LinkBadge',$event)">
         </pep-textbox>
         <div>
+            <pep-field-title [label]="'EDITOR.CONTENT.ON_CLICK_FLOW' | translate"></pep-field-title>
+            <pep-flow-picker-button [flowHostObject]="flowHostObject" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
+        </div>
+        <!-- <div>
             <label class="body-lg bold ellipsis">{{'EDITOR.CONTENT.ON_CLICK_FLOW' | translate}}</label> 
             <label class="body-xs normal">{{'EDITOR.CONTENT.FLOW_DESCRIPTION' | translate}}</label>
             <pep-button class="script-button" [value]="btnFlowName ? btnFlowName : ('EDITOR.GENERAL.CHOOSE_FLOW' | translate)" (buttonClick)="openFlowPickerDialog();"></pep-button>
-         </div>
-         <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.CONSUMER' | translate}}</label>
-         <pep-select [label]="'EDITOR.CONTENT.SELECT_CONSUMER' | translate" [value]="configuration?.Consumer" 
-                       [options]="consumersList" (valueChange)="onFieldChange('Consumer',$event)" [emptyOption]="false" 
-                       styleType="regular">
-         </pep-select>
+         </div> -->
     </div>
 </div>

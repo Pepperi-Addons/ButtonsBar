@@ -31,7 +31,6 @@ export class ButtonEditorComponent implements OnInit {
     }
 
     public title: string;
-    public btnFlowName = undefined;
 
     @Input() isDraggable = false;
     @Input() showActions = true;
@@ -49,7 +48,7 @@ export class ButtonEditorComponent implements OnInit {
     buttonStyles: Array<PepButton> = [];
     iconNames: Array<PepButton> = [];
     iconPosition: Array<PepButton> = [];
-    consumersList: Array<PepButton> = [];
+    flowHostObject;
 
     constructor(
         private translate: TranslateService,
@@ -78,11 +77,7 @@ export class ButtonEditorComponent implements OnInit {
             { key: 'end', value: this.translate.instant('EDITOR.CONTENT.ICON.POSITION.END'), callback: (event: any) => this.onFieldChange('Icon.Position',event) }
         ]
 
-        if(this.configuration?.Flow){
-            const flow = JSON.parse(atob(this.configuration.Flow));
-            this.btnFlowName = await this.buttonsBarService.getFlowName(flow.FlowKey);
-        }
-
+        this.prepareFlowHostObject();
     }
 
     getOrdinal(n) {
@@ -111,11 +106,6 @@ export class ButtonEditorComponent implements OnInit {
             this.updateHostObjectField(`Buttons[${this.id}][${key}]`, value);
             
         }
-
-        //this.updateHostObject();
-       // this.updateHostObject(true);
-       //this.updateHostObjectField(`Buttons[${this.id}]`, value);
-       // this.updateHostObjectField(`Buttons[${this.id}].${key}`, value);
     }
 
     private updateHostObject(updatePageConfiguration = false) {
@@ -134,69 +124,28 @@ export class ButtonEditorComponent implements OnInit {
         });
     }
 
-    onSlideshowFieldChange(key, event){/*
-        if(event && event.source && event.source.key){
-            this.configuration.GalleryConfig[key] = event.source.key;
-        }
-        else{
-            this.configuration.GalleryConfig[key] = event;
-        }
+    private prepareFlowHostObject() {
+        this.flowHostObject = {};
+        const runFlowData = this.configuration?.Flow  ?  JSON.parse(atob(this.configuration.Flow)) : null;
+        const fields = {};
 
-        this.updateHostObject();*/
+        if (runFlowData) {
+            this.buttonsBarService.flowDynamicParameters.forEach((value, key) => {
+                fields[key] = {
+                    Type: value || 'String'
+                };
+            });
+        }
+        
+        this.flowHostObject['runFlowData'] = runFlowData?.FlowKey ? runFlowData : undefined;
+        this.flowHostObject['fields'] = fields;
     }
 
-    onHostEvents(event: any) {/*
-        if(event?.url) {
-            this.configuration.Cards[this.id].AssetURL = "'"+ encodeURI(event.url) +"'";
-            this.configuration.Cards[this.id].AssetKey = event.key;
+    onFlowChange(flowData: any) {
+        const base64Flow = btoa(JSON.stringify(flowData));
 
-            this.updateHostObject();
-        }     */
-    }
-
-    openFlowPickerDialog() {
-        const flow = this.configuration?.Flow  ?  JSON.parse(atob(this.configuration.Flow)) : null;
-        let hostObj = {};
-        if(flow){
-            hostObj = { 
-                runFlowData: { 
-                    FlowKey: flow.FlowKey, 
-                    FlowParams: flow.FlowParams 
-                },
-                fields: {
-                    ButtonConfiguration: {
-                        Type: 'Object',
-                    }
-                }
-            };
-        } else{
-            hostObj = { 
-                fields: {
-                    ButtonConfiguration: {
-                            Type: 'Object',
-                        }
-                    },
-                }
-        }
-
-        this.dialogRef = this.addonBlockLoaderService.loadAddonBlockInDialog({
-            container: this.viewContainerRef,
-            name: 'FlowPicker',
-            size: 'large',
-            hostObject: hostObj,
-            hostEventsCallback: async (event) => {
-                if (event.action === 'on-done') {
-                        const base64Flow = btoa(JSON.stringify(event.data));
-                        this.configuration['Flow'] = base64Flow;
-                        this.updateHostObjectField(`Buttons[${this.id}]['Flow']`, base64Flow);
-                        this.dialogRef.close();
-                        this.btnFlowName = await this.buttonsBarService.getFlowName(event.data.FlowKey) || undefined;
-                } else if (event.action === 'on-cancel') {
-                        this.dialogRef.close();
-                }
-            }
-        })
-
+        this.configuration.Flow = base64Flow;
+        this.updateHostObjectField(`Buttons[${this.id}]['Flow']`, base64Flow);
     }
 
 }

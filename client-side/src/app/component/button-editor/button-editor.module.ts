@@ -7,10 +7,9 @@ import { PepMenuModule } from '@pepperi-addons/ngx-lib/menu';
 import { PepCheckboxModule } from '@pepperi-addons/ngx-lib/checkbox';
 import { PepTextboxModule } from '@pepperi-addons/ngx-lib/textbox';
 import { TranslateModule, TranslateLoader, TranslateService, TranslateStore } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
 import { PepSliderModule} from '@pepperi-addons/ngx-lib/slider';
 import { PepGroupButtonsSettingsModule } from '@pepperi-addons/ngx-composite-lib/group-buttons-settings';
-import { PepFileService, PepAddonService, PepNgxLibModule } from '@pepperi-addons/ngx-lib';
+import { PepAddonService, PepNgxLibModule } from '@pepperi-addons/ngx-lib';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PepColorModule } from '@pepperi-addons/ngx-lib/color';
 import { PepGroupButtonsModule } from '@pepperi-addons/ngx-lib/group-buttons';
@@ -21,6 +20,8 @@ import { config } from '../../app.config';
 import { PepIconRegistry, pepIconSystemMove, pepIconArrowBack, pepIconArrowBackRight, pepIconArrowDown, pepIconArrowDownAlt, pepIconArrowBackLeft, pepIconArrowEither, pepIconArrowLeft, pepIconArrowLeftAlt, pepIconArrowRight,pepIconArrowRightAlt, pepIconArrowTwoWaysHorL, pepIconArrowTwoWaysHorR,pepIconArrowTwoWaysVerB, pepIconArrowTwoWaysVerT,pepIconArrowUp, pepIconArrowUpAlt, pepIconBarndPepperi,pepIconDeviceDesktop,pepIconDeviceMobile,pepIconDeviceResponsive,pepIconDeviceTablet,pepIconIndicatorDotPlaceholder,pepIconLeafRound,pepIconLeafSkiny,pepIconMiscExcel,pepIconNoImage,pepIconNoImage2,pepIconNumberCoins,pepIconNumberDecimal,pepIconNumberDollar,pepIconNumberEuro,pepIconNumberMinus,pepIconNumberNumber,pepIconNumberPercent,pepIconNumberPlus,pepIconRipplesTransparent,pepIconShoppingCart,pepIconShoppingPaper
          , pepIconSystemAlert,pepIconSystemAttach,pepIconSystemAvatar,pepIconSystemBell,pepIconSystemBellOn,pepIconSystemBin,pepIconSystemBolt,pepIconSystemBoolean,pepIconSystemChat,pepIconSystemCircle,pepIconSystemClose,pepIconSystemCopy,pepIconSystemDoc,pepIconSystemDoor,pepIconSystemDotEllipsis,pepIconSystemEdit,pepIconSystemEducation,pepIconSystemEmail,pepIconSystemFileDownload,pepIconSystemFileUpload,pepIconSystemFileUploadCloud,pepIconSystemFilter,pepIconSystemFilter2,pepIconSystemFlag,pepIconSystemFolder,pepIconSystemFullScreen,pepIconSystemHeart,pepIconSystemHelp,pepIconSystemHome,pepIconSystemImage,pepIconSystemInfo,pepIconSystemInventory,pepIconSystemLink,pepIconSystemLock,pepIconSystemLogic,pepIconSystemMap,pepIconSystemMegaphone,pepIconSystemMenu,pepIconSystemMenuDots,pepIconSystemMust,pepIconSystemOffLine,pepIconSystemOk,pepIconSystemPause,pepIconSystemPhone,pepIconSystemPlay,pepIconSystemPrint,pepIconSystemProcessing,pepIconSystemQuestion,pepIconSystemRadioBtn,pepIconSystemRotateDevice,pepIconSystemSearch,pepIconSystemSelect,pepIconSystemSettings,
         pepIconSystemSignature,pepIconSystemSpinner,pepIconSystemSupport,pepIconSystemTexterea,pepIconSystemTool,pepIconSystemView,pepIconTextAlignCenter,pepIconTextAlignLeft,pepIconTextAlignRight,pepIconTextLongText,pepIconTextShortText,pepIconTimeCal,pepIconTimeDatetime,pepIconTimeDuration,pepIconTimeTime,pepIconViewCardLg,pepIconViewCardMd,pepIconViewCardSm,pepIconViewLine,pepIconViewMatrix,pepIconViewTable } from '@pepperi-addons/ngx-lib/icon';
+import { PepFlowPickerButtonModule } from '@pepperi-addons/ngx-composite-lib/flow-picker-button';
+import { PepFieldTitleModule } from '@pepperi-addons/ngx-lib/field-title';
 
 const pepIcons = [
     pepIconSystemMove,pepIconArrowBack,pepIconArrowBackRight,pepIconArrowDown, pepIconArrowDownAlt,pepIconArrowBackLeft, pepIconArrowEither, pepIconArrowLeft, pepIconArrowLeftAlt, pepIconArrowRight,pepIconArrowRightAlt, pepIconArrowTwoWaysHorL, pepIconArrowTwoWaysHorR,pepIconArrowTwoWaysVerB, pepIconArrowTwoWaysVerT,pepIconArrowUp, pepIconArrowUpAlt, pepIconBarndPepperi,pepIconDeviceDesktop,pepIconDeviceMobile,pepIconDeviceResponsive,pepIconDeviceTablet,pepIconIndicatorDotPlaceholder,pepIconLeafRound,pepIconLeafSkiny,pepIconMiscExcel,pepIconNoImage,pepIconNoImage2,pepIconNumberCoins,pepIconNumberDecimal,pepIconNumberDollar,pepIconNumberEuro,pepIconNumberMinus,pepIconNumberNumber,pepIconNumberPercent,pepIconNumberPlus,pepIconRipplesTransparent,pepIconShoppingCart,pepIconShoppingPaper,
@@ -45,6 +46,9 @@ const pepIcons = [
         PepGroupButtonsSettingsModule,
         PepImageModule,
         PepTextareaModule,
+        PepFlowPickerButtonModule,
+        PepFieldTitleModule,
+
         TranslateModule.forChild({
             loader: {
                 provide: TranslateLoader,

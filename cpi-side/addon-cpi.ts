@@ -3,28 +3,32 @@ import { CLIENT_ACTION_ON_BUTTONS_BAR_CLICK } from 'shared';
 import ButtonsBarCpiService from './buttons-bar-cpi.service';
 
 export async function load(configuration: any): Promise<void>{
-       // check if flow configured to on load --> run flow (instaed of onload event)
-       //if(configuration?.Data?.GalleryConfig?.OnLoadFlow){
-       // const cpiService = new ButtonsBarCpiService();
-        //CALL TO FLOWS AND SET CONFIGURATION
-        //const res: any = await cpiService.getOptionsFromFlow(configuration?.Data?.GalleryConfig.OnLoadFlow, {OnLoad: configuration}, req.context );
-       //configuration = res?.configuration || configuration;
-    //}
     return Promise.resolve();
 }
 
 export const router = Router()
-router.get('/test', (req, res) => {
-    res.json({
-        hello: 'World'
-    })
-})
+// router.get('/test', (req, res) => {
+//     res.json({
+//         hello: 'World'
+//     })
+// })
+
+router.post('/run_on_load_event', async (req, res) => {
+    let configuration = req?.body?.Configuration;
+    // check if flow configured to on load --> run flow (instaed of onload event)
+    if (configuration?.ButtonsBarConfig?.OnLoadFlow){
+        const cpiService = new ButtonsBarCpiService();
+        //CALL TO FLOWS AND SET CONFIGURATION
+        const result: any = await cpiService.getOptionsFromFlow(configuration.ButtonsBarConfig.OnLoadFlow || [], {configuration}, req.context);
+        configuration = result?.configuration || configuration;
+    }
+    res.json({Configuration: configuration});
+});
 
 /**********************************  client events starts /**********************************/
 pepperi.events.intercept(CLIENT_ACTION_ON_BUTTONS_BAR_CLICK as any, {}, async (data): Promise<any> => {
     const cpiService = new ButtonsBarCpiService();
     const res: any = await cpiService.getOptionsFromFlow(data.flow, data.parameters, data );
     return res;
-
 });
 /***********************************  client events ends /***********************************/

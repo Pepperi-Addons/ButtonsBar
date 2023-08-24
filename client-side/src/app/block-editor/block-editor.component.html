@@ -50,10 +50,9 @@
                                     (btnkeyChange)="onFieldChange('Size',$event)">
         </pep-group-buttons-settings>
         <div>
-            <label class="body-lg bold ellipsis">{{'EDITOR.GENERAL.ON_LOAD_FLOW' | translate}}</label>
-            <label class="body-xs normal">{{'EDITOR.GENERAL.FLOW_DESCRIPTION' | translate}}</label>
-            <pep-button class="script-button" [value]="onloadFlowName ? onloadFlowName : ('EDITOR.GENERAL.CHOOSE_FLOW' | translate)" (buttonClick)="openFlowPickerDialog();"></pep-button>
-         </div>
+            <pep-field-title [label]="'EDITOR.GENERAL.ON_LOAD_FLOW' | translate"></pep-field-title>
+            <pep-flow-picker-button [flowHostObject]="flowHostObject" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
+        </div>
     </mat-tab>
     <mat-tab cdkDropListGroup label="{{'EDITOR.TABS.CONTENT' | translate}}">
         <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BUTTONS' | translate}}</label>

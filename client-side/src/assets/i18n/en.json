@@ -52,11 +52,9 @@
                 }
             },
             "BADGE": "Badge",
-            "LINK_BADGE": "Link the badge",
+            "LINK_BADGE": "Badge label",
             "ON_CLICK_FLOW": "On click flow",
             "FLOW_DESCRIPTION": "Choose flow to run when button click",
-            "CONSUMER": "Cunsumer",
-            "SELECT_CONSUMER": "Select a cunsumer",
             "ADD_BUTTON": "Add new button"
         }
 
