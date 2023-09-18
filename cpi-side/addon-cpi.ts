@@ -15,11 +15,12 @@ export const router = Router()
 
 router.post('/run_on_load_event', async (req, res) => {
     let configuration = req?.body?.Configuration;
+    const state = req.body.State;
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.ButtonsBarConfig?.OnLoadFlow){
         const cpiService = new ButtonsBarCpiService();
         //CALL TO FLOWS AND SET CONFIGURATION
-        const result: any = await cpiService.getOptionsFromFlow(configuration.ButtonsBarConfig.OnLoadFlow || [], {configuration}, req.context);
+        const result: any = await cpiService.getOptionsFromFlow(configuration.ButtonsBarConfig.OnLoadFlow || [], state, req.context, configuration);
         configuration = result?.configuration || configuration;
     }
     res.json({Configuration: configuration});
@@ -28,7 +29,7 @@ router.post('/run_on_load_event', async (req, res) => {
 /**********************************  client events starts /**********************************/
 pepperi.events.intercept(CLIENT_ACTION_ON_BUTTONS_BAR_CLICK as any, {}, async (data): Promise<any> => {
     const cpiService = new ButtonsBarCpiService();
-    const res: any = await cpiService.getOptionsFromFlow(data.flow, data.parameters, data );
+    const res: any = await cpiService.getOptionsFromFlow(data.flow, data.parameters, data, data.parameters.configuration );
     return res;
 });
 /***********************************  client events ends /***********************************/

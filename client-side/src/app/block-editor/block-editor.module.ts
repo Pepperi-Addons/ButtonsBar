@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule, TranslateService, TranslateStore } from '@ngx-translate/core';
 import { PepAddonService } from '@pepperi-addons/ngx-lib';
-import { BlockEditorComponent } from './index';
+import { ButtonsEditorComponent } from './index';
 import { ButtonEditorModule } from '../component/button-editor/button-editor.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -13,10 +13,11 @@ import { PepTextboxModule } from '@pepperi-addons/ngx-lib/textbox';
 import { PepFlowPickerButtonModule } from '@pepperi-addons/ngx-composite-lib/flow-picker-button';
 import { PepGroupButtonsModule } from '@pepperi-addons/ngx-lib/group-buttons';
 import { PepGroupButtonsSettingsModule } from '@pepperi-addons/ngx-composite-lib/group-buttons-settings';
+import { FlowService } from '../../services/flow.service';
 import { config } from '../app.config';
 
 @NgModule({
-    declarations: [BlockEditorComponent],
+    declarations: [ButtonsEditorComponent],
     imports: [
         CommonModule,
         MatTabsModule,
@@ -39,13 +40,14 @@ import { config } from '../app.config';
             }, isolate: false
         }),
     ],
-    exports: [BlockEditorComponent],
+    exports: [ButtonsEditorComponent],
     providers: [
         TranslateStore,
+        FlowService
         // Add here all used services.
     ]
 })
-export class BlockEditorModule {
+export class ButtonsEditorModule {
     constructor(
         translate: TranslateService,
         private pepAddonService: PepAddonService

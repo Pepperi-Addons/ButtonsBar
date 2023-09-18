@@ -28,8 +28,8 @@ export class RelationsService {
     }
 
       private async upsertBlockRelation(): Promise<any> {
-            const blockRelationName = 'ButtonsBar';
-            const blockName = 'Block';
+            const blockRelationName = 'Buttons';
+            const blockName = 'Buttons';
             const blockRelation: Relation = {
                 RelationName: 'PageBlock',
                 Name: blockRelationName,

@@ -7,6 +7,7 @@ import { ButtonEditor, IButtonsBar, IButtonsBarConfig }  from '../../buttons-bar
 import { MatDialogRef } from '@angular/material/dialog';
 import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
 import { ButtonsBarService } from 'src/services/buttons-bar.service';
+import { FlowService } from '../../../services/flow.service';
 
 interface groupButtonArray {
     key: string; 
@@ -52,11 +53,8 @@ export class ButtonEditorComponent implements OnInit {
 
     constructor(
         private translate: TranslateService,
-        private pepColorService: PepColorService,
-        private pepDialogService: PepDialogService,
-        private viewContainerRef: ViewContainerRef,
-        private buttonsBarService: ButtonsBarService,
-        private addonBlockLoaderService: PepAddonBlockLoaderService) {
+        private flowService: FlowService,
+        private buttonsBarService: ButtonsBarService) {
 
     }
 
@@ -77,7 +75,7 @@ export class ButtonEditorComponent implements OnInit {
             { key: 'end', value: this.translate.instant('EDITOR.CONTENT.ICON.POSITION.END'), callback: (event: any) => this.onFieldChange('Icon.Position',event) }
         ]
 
-        this.prepareFlowHostObject();
+        this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.Flow || null)); 
     }
 
     getOrdinal(n) {
@@ -122,23 +120,6 @@ export class ButtonEditorComponent implements OnInit {
             key: fieldKey, 
             value: value
         });
-    }
-
-    private prepareFlowHostObject() {
-        this.flowHostObject = {};
-        const runFlowData = this.configuration?.Flow  ?  JSON.parse(atob(this.configuration.Flow)) : null;
-        const fields = {};
-
-        if (runFlowData) {
-            this.buttonsBarService.flowDynamicParameters.forEach((value, key) => {
-                fields[key] = {
-                    Type: value || 'String'
-                };
-            });
-        }
-        
-        this.flowHostObject['runFlowData'] = runFlowData?.FlowKey ? runFlowData : undefined;
-        this.flowHostObject['fields'] = fields;
     }
 
     onFlowChange(flowData: any) {

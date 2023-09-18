@@ -6,13 +6,14 @@ import { IButtonsBar, ButtonEditor, IButtonsBarConfig } from '../buttons-bar.mod
 import { PepButton } from '@pepperi-addons/ngx-lib/button';
 import { MatDialogRef } from '@angular/material/dialog';
 import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
+import { FlowService } from 'src/services/flow.service';
 
 @Component({
     selector: 'page-block-editor',
     templateUrl: './block-editor.component.html',
     styleUrls: ['./block-editor.component.scss']
 })
-export class BlockEditorComponent implements OnInit {
+export class ButtonsEditorComponent implements OnInit {
     
     @Input()
     set hostObject(value: any) {
@@ -20,8 +21,8 @@ export class BlockEditorComponent implements OnInit {
                 this._configuration = value.configuration;
                 if(value.configurationSource && Object.keys(value.configuration).length > 0){
                     this.configurationSource = value.configurationSource;
-                    this.prepareFlowHostObject();
-                }  
+                }
+                this.flowHostObject = this.flowService.prepareFlowHostObject(this._configuration.ButtonsBarConfig.OnLoadFlow || null);  
         } else {
             // TODO - NEED TO ADD DEFAULT CARD
             if(this.blockLoaded){
@@ -51,10 +52,7 @@ export class BlockEditorComponent implements OnInit {
 
     constructor(private translate: TranslateService,
                 private buttonsBarService: ButtonsBarService,
-                private viewContainerRef: ViewContainerRef,
-                private addonBlockLoaderService: PepAddonBlockLoaderService,) {
-        
-    }
+                private flowService: FlowService) {}
 
     async ngOnInit(): Promise<void> {
 
@@ -100,7 +98,7 @@ export class BlockEditorComponent implements OnInit {
     private loadDefaultConfiguration() {
         this._configuration = this.getDefaultHostObject();
         this.updateHostObject();
-        this.prepareFlowHostObject();
+        this.flowHostObject = this.flowService.prepareFlowHostObject(this._configuration.ButtonsBarConfig.OnLoadFlow || null);  
     }
 
     private getDefaultHostObject(): IButtonsBar {
@@ -198,27 +196,8 @@ export class BlockEditorComponent implements OnInit {
         this.buttonsBarService.changeCursorOnDragStart();
     }
 
-    private prepareFlowHostObject() {
-        this.flowHostObject = {};
-        const runFlowData = this.configuration?.ButtonsBarConfig?.OnLoadFlow  ?  JSON.parse(atob(this.configuration.ButtonsBarConfig.OnLoadFlow)) : null;
-
-        const fields = {};
-
-        if (runFlowData) {
-            this.buttonsBarService.flowDynamicParameters.forEach((value, key) => {
-                fields[key] = {
-                    Type: value || 'String'
-                };
-            });
-        }
-        
-        this.flowHostObject['runFlowData'] = runFlowData?.FlowKey ? runFlowData : undefined;
-        this.flowHostObject['fields'] = fields;
-    }
-
     onFlowChange(flowData: any) {
         const base64Flow = btoa(JSON.stringify(flowData));
-
         this.configuration.ButtonsBarConfig.OnLoadFlow = base64Flow;
         this.updateHostObjectField(`ButtonsBarConfig.OnLoadFlow`, base64Flow);
     }

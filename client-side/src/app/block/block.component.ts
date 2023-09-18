@@ -8,7 +8,7 @@ import { CLIENT_ACTION_ON_BUTTONS_BAR_CLICK } from 'shared';
     templateUrl: './block.component.html',
     styleUrls: ['./block.component.scss']
 })
-export class BlockComponent implements OnInit {
+export class ButtonsComponent implements OnInit {
     @Input() 
     set hostObject(value: IHostObject){
         this.configuration = value?.configuration;
@@ -47,6 +47,7 @@ export class BlockComponent implements OnInit {
     onButtonClick(event){
        const flowData = event.Flow || null;
        const parameters = {
+            configuration: this.configuration,
             ButtonConfiguration: event
         }
         if(flowData){
