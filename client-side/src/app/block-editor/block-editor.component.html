@@ -59,7 +59,7 @@
         <div *ngIf="configuration?.Buttons" (cdkDropListDropped)="drop($event)"  cdkDropList>
             <button-editor *ngFor ="let btn of configuration?.Buttons; let currentButton = index" 
                 [id]="currentButton" [selectedButton]="selectedButton" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
-                [isDraggable]="true" (editClick)='onButtonEditClick($event);' (removeClick)='onButtonRemoveClick($event);'
+                [isDraggable]="true" (editClick)='onButtonEditClick($event);' (duplicateClick)="onBannerDuplicateClick($event)" (removeClick)='onButtonRemoveClick($event);'
                 [configuration]="btn"
                 cdkDrag  style="cursor: grab;" (cdkDragStarted)="onDragStart($event)" (cdkDragEnded)="onDragEnd($event)">
             </button-editor>

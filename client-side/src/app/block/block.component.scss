@@ -22,4 +22,17 @@
     ::ng-deep .mat-badge-content{
         z-index: 1;
     }
+    
+    .pep-button{
+        display: flex;
+        .icon-container{
+            aspect-ratio : 1/1;
+            max-height: 4rem;
+            overflow: hidden;
+
+            img{
+                aspect-ratio: 1/1;
+        }
+        }
+    }
 }

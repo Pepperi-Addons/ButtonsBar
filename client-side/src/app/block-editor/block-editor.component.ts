@@ -42,7 +42,7 @@ export class ButtonsEditorComponent implements OnInit {
     public configurationSource: IButtonsBar;
     public widthTypes: Array<PepButton> = [];
     public verticalAlign : Array<PepButton> = [];
-    public selectedButton: number = 0;
+    public selectedButton: number = -1;
     
     private dialogRef: MatDialogRef<any>;
 
@@ -176,6 +176,16 @@ export class ButtonsEditorComponent implements OnInit {
        this.configuration?.Buttons.splice(event.id, 1);
        this.configuration?.Buttons.forEach(function(btn, index, arr) {btn.id = index; });
        this.updateHostObject();
+    }
+
+    onBannerDuplicateClick(event){
+        let btn = new ButtonEditor;
+        btn = JSON.parse(JSON.stringify(this.configuration.Buttons[event.id]));
+
+        btn.id = (this.configuration?.Buttons.length);
+        this.configuration?.Buttons.push(btn);
+        this._configuration = this.configuration
+        this.updateHostObject();  
     }
 
     drop(event: CdkDragDrop<string[]>) {

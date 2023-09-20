@@ -20,10 +20,10 @@ export class ButtonLabel {
     Label: string = '';
 }
 
-export class ButtonIcon {
+export class Icon {
     UseIcon: boolean = false;
-    Name: PepIconType = 'barnd_pepperi';
     Position: iconPosition = 'end';
+    Url: string = '';
 }
 
 export class ButtonBadge {
@@ -68,7 +68,7 @@ export class ButtonEditor {
     id: number;
     Label: ButtonLabel = new ButtonLabel();
     Style: PepStyleType = 'weak';
-    Icon: ButtonIcon = new ButtonIcon();
+    Icon: Icon = new Icon();
     Badge: ButtonBadge = new ButtonBadge();
     Flow: any;
 }

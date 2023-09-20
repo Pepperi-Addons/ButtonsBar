@@ -2,14 +2,16 @@
     <div>
         <pep-button classNames="lock-events" sizeType="xs" iconName="system_move"></pep-button>
     </div>
-    <div *ngIf="title !== ''" class="title-container">
+    <div *ngIf="title !== ''" class="title-container" (click)="onEditClick();"
+        [ngStyle]="{'cursor' : (id == selectedButton ? 'n-resize' : 's-resize')}">
         <span class="body-sm ellipsis">{{id + 1}}.&nbsp;</span>
         <span class="body-sm color-link bold ellipsis" title="">{{configuration?.Label?.Label || 'TITLE'}}</span>
     </div>
     <div class="actions" *ngIf="showActions">
+        <pep-button sizeType="xs" iconName="system_copy" title="{{'EDITOR.CONTENT.DUPLICATE' | translate}}" (buttonClick)="onDuplicateClick();"></pep-button>
         <pep-button classNames="caution" sizeType="xs" iconName="system_bin" (buttonClick)="onRemoveClick();"></pep-button>
-        <pep-button *ngIf="true" sizeType="xs" iconName="arrow_down" (buttonClick)="onEditClick();"></pep-button>
-        <pep-button *ngIf="true" sizeType="xs" iconName="arrow_up" (buttonClick)="onEditClick();"></pep-button>
+        <!-- <pep-button sizeType="xs" iconName="arrow_down" (buttonClick)="onEditClick();"></pep-button>
+        <pep-button sizeType="xs" iconName="arrow_up" (buttonClick)="onEditClick();"></pep-button> -->
     </div>
     <div class="editorCont" *ngIf="id == selectedButton"> 
         <pep-checkbox class="checkbox-as-title" 
@@ -28,6 +30,15 @@
                       [options]="buttonStyles" (valueChange)="onFieldChange('Style',$event)" [emptyOption]="false" 
                       styleType="regular">
         </pep-select>
+
+        <pep-icon-picker 
+                [header]="'EDITOR.CONTENT.ICON.TITLE' | translate"
+                [iconURL]="configuration?.Icon?.Url || ''"
+                [disabled]="!configuration?.Icon.UseIcon" 
+                (iconChange)="onIconChange($event)"
+                (iconDisableChange)="onUseIconChange($event)">
+        </pep-icon-picker>
+
         <pep-checkbox class="checkbox-as-title" 
                 [value]="configuration?.Icon?.UseIcon || false" 
                 [label]="'EDITOR.CONTENT.ICON.TITLE' | translate" 

@@ -37,6 +37,7 @@
             "BUTTON_TEXT": "Button label",
             "STYLE": "Style",
             "CHOOSE_STYLE": "Choose button style",
+            "DUPLICATE": "Duplicate",
             "STYLES":{
                 "WEAK": "Weak",
                 "REGULAR": "Regular",

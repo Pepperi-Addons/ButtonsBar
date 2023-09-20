@@ -7,12 +7,13 @@ import { PepButtonModule } from '@pepperi-addons/ngx-lib/button';
 import { PepAddonService } from '@pepperi-addons/ngx-lib';
 import { ButtonsComponent } from './index';
 import { config } from '../app.config';
-import { PepIconRegistry, pepIconArrowDown, pepIconBarndPepperi } from '@pepperi-addons/ngx-lib/icon';
+import { PepIconRegistry,pepIconSystemCopy,  pepIconArrowDown, pepIconBarndPepperi } from '@pepperi-addons/ngx-lib/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 
 const pepIcons = [
     pepIconArrowDown,
-    pepIconBarndPepperi
+    pepIconBarndPepperi,
+    pepIconSystemCopy
 ]
 export const routes: Routes = [
     {

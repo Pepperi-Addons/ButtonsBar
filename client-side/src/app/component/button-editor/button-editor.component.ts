@@ -39,6 +39,7 @@ export class ButtonEditorComponent implements OnInit {
     @Output() hostEvents: EventEmitter<any> = new EventEmitter<any>();
     @Output() removeClick: EventEmitter<any> = new EventEmitter();
     @Output() editClick: EventEmitter<any> = new EventEmitter();
+    @Output() duplicateClick: EventEmitter<any> = new EventEmitter();
 
     dialogRef: MatDialogRef<any>;
     iconslist: Array<string> = ['system_move','arrow_back','arrow_back_right','arrow_back_left','arrow_down', 'arrow_down_alt', 'arrow_either', 'arrow_left', 'arrow_left_alt', 'arrow_right','arrow_right_alt', 
@@ -88,6 +89,10 @@ export class ButtonEditorComponent implements OnInit {
         this.removeClick.emit({id: this.id});
     }
 
+    onDuplicateClick(){
+        this.duplicateClick.emit({id: this.id});
+    }
+
     onEditClick() {
         this.editClick.emit({id: this.id});
     }
@@ -124,9 +129,17 @@ export class ButtonEditorComponent implements OnInit {
 
     onFlowChange(flowData: any) {
         const base64Flow = btoa(JSON.stringify(flowData));
-
         this.configuration.Flow = base64Flow;
         this.updateHostObjectField(`Buttons[${this.id}]['Flow']`, base64Flow);
+    }
+
+    onIconChange(event){
+        this.configuration.Icon.Url = event.url;
+        this.onFieldChange('Icon.Url', event?.url );
+    }
+
+    onUseIconChange(event: boolean){
+        this.onFieldChange('Icon.UseIcon',event);
     }
 
 }
