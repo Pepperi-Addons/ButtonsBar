@@ -5,24 +5,23 @@
                 mat-button class="pep-button button-title-with-icon"
                 [ngClass]="[configuration?.ButtonsBarConfig?.Structure?.Size || 'md', btn?.Style || 'weak']"
                 [style.width]="btnWidth"
-                [ngStyle]="{'justify-content': (btn.Icon.Position == 'end' ? 'space-between' : 'unset')}"
-                matBadgePosition="above after" 
-                [matBadgeSize]="configuration?.ButtonsBarConfig?.Structure?.Size == 'sm' ? 'small' : configuration?.ButtonsBarConfig?.Structure?.Size == 'md' ? 'medium' : 'large'"
-                matBadgeOverlap=true matBadgeColor="warn"
-                [matBadge]="btn?.Badge?.UseBadge && btn?.Badge?.LinkBadge ? btn.Badge.LinkBadge : ''"
+                matBadge="{{(btn?.Badge?.UseBadge && btn?.Badge?.LinkBadge ? btn.Badge.LinkBadge : '')}}" 
+                matBadgeColor="accent" 
+                matBadgePosition="above after"
+                matBadgeOverlap=true
+                matBadgeSize="{{(configuration?.ButtonsBarConfig?.Structure?.Size == 'sm' ? 'small' : configuration?.ButtonsBarConfig?.Structure?.Size == 'md' ? 'medium' : 'large')}}"
                 (click)="onButtonClick(btn)">
              <div *ngIf="btn.Icon?.Position == 'end'">
                 {{btn?.Label?.UseLabel ? btn.Label.Label : ''}}   
             </div>
-            <div class="icon-container" *ngIf="btn.Icon.UseIcon"
-                [ngStyle]="{'margin-right' : btn.Icon.Position == 'start' ? '.75rem' : 'unset'}">
+            <div class="icon-container" *ngIf="btn.Icon.UseIcon">
                 <img [src]="btn.Icon?.Url || ''"/>
             </div>  
             <div *ngIf="btn.Icon?.Position == 'start'">
                 {{btn?.Label?.UseLabel ? btn.Label.Label : ''}}   
             </div>
         </div>
-        <pep-button *ngFor ="let btn of configuration?.Buttons || []; let currentButton = index" 
+        <!-- <pep-button *ngFor ="let btn of configuration?.Buttons || []; let currentButton = index" 
                     [style.width]="btnWidth"
                     [iconName]="btn?.Icon?.UseIcon ? btn.Icon.Name : ''"
                     [iconPosition]="btn?.Icon?.UseIcon ? btn?.Icon?.Position : 'end'"
@@ -34,5 +33,5 @@
                     matBadgeOverlap=true matBadgeColor="warn"
                     [matBadge]="btn?.Badge?.UseBadge && btn?.Badge?.LinkBadge ? btn.Badge.LinkBadge : ''"
                     (click)="onButtonClick(btn)">
-        </pep-button>    
+        </pep-button>     -->
 </div>

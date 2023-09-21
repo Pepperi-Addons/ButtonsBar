@@ -10,70 +10,61 @@
     <div class="actions" *ngIf="showActions">
         <pep-button sizeType="xs" iconName="system_copy" title="{{'EDITOR.CONTENT.DUPLICATE' | translate}}" (buttonClick)="onDuplicateClick();"></pep-button>
         <pep-button classNames="caution" sizeType="xs" iconName="system_bin" (buttonClick)="onRemoveClick();"></pep-button>
-        <!-- <pep-button sizeType="xs" iconName="arrow_down" (buttonClick)="onEditClick();"></pep-button>
-        <pep-button sizeType="xs" iconName="arrow_up" (buttonClick)="onEditClick();"></pep-button> -->
     </div>
     <div class="editorCont" *ngIf="id == selectedButton"> 
-        <pep-checkbox class="checkbox-as-title" 
-                      [value]="configuration?.Label?.UseLabel" 
-                      [label]="'EDITOR.CONTENT.TEXT' | translate" 
-                      [renderTitle]="false" 
-                      (valueChange)="onFieldChange('Label.UseLabel',$event)">
-        </pep-checkbox>
-        <pep-textbox [label]="'EDITOR.CONTENT.BUTTON_TEXT' | translate" 
-                      [disabled]="!configuration?.Label.UseLabel"
-                      [value]="configuration?.Label?.Label" 
-                      (valueChange)="onFieldChange('Label.Label',$event)">
-        </pep-textbox>
-        <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.STYLE' | translate}}</label>
-        <pep-select [label]="'EDITOR.CONTENT.CHOOSE_STYLE' | translate" [value]="configuration?.Style" 
-                      [options]="buttonStyles" (valueChange)="onFieldChange('Style',$event)" [emptyOption]="false" 
-                      styleType="regular">
-        </pep-select>
+        <div>
+            <pep-checkbox class="checkbox-as-title" 
+                        [value]="configuration?.Label?.UseLabel" 
+                        [label]="'EDITOR.CONTENT.TEXT' | translate" 
+                        [renderTitle]="false" 
+                        (valueChange)="onFieldChange('Label.UseLabel',$event)">
+            </pep-checkbox>
+            <pep-textbox [label]="'EDITOR.CONTENT.BUTTON_TEXT' | translate" 
+                        [class]="'pep-field-no-spacing'"
+                        [disabled]="!configuration?.Label.UseLabel"
+                        [value]="configuration?.Label?.Label" 
+                        (valueChange)="onFieldChange('Label.Label',$event)">
+            </pep-textbox>
+        </div>
+        <div>
+            <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.STYLE' | translate}}</label>
+            <pep-select [label]="'EDITOR.CONTENT.CHOOSE_STYLE' | translate" [value]="configuration?.Style" 
+                        [options]="buttonStyles" (valueChange)="onFieldChange('Style',$event)" [emptyOption]="false" 
+                        styleType="regular">
+            </pep-select>
+        </div>
+       
+            <pep-icon-picker 
+                    [header]="'EDITOR.CONTENT.ICON.TITLE' | translate"
+                    [iconURL]="configuration?.Icon?.Url || ''"
+                    [disabled]="!configuration?.Icon.UseIcon" 
+                    (iconChange)="onIconChange($event)"
+                    (iconDisableChange)="onUseIconChange($event)">
+            </pep-icon-picker>
 
-        <pep-icon-picker 
-                [header]="'EDITOR.CONTENT.ICON.TITLE' | translate"
-                [iconURL]="configuration?.Icon?.Url || ''"
-                [disabled]="!configuration?.Icon.UseIcon" 
-                (iconChange)="onIconChange($event)"
-                (iconDisableChange)="onUseIconChange($event)">
-        </pep-icon-picker>
-
-        <pep-checkbox class="checkbox-as-title" 
-                [value]="configuration?.Icon?.UseIcon || false" 
-                [label]="'EDITOR.CONTENT.ICON.TITLE' | translate" 
-                [renderTitle]="false" 
-                (valueChange)="onFieldChange('Icon.UseIcon',$event)">
-        </pep-checkbox>
-        <pep-select [label]="'EDITOR.CONTENT.ICON.CHOOSE_ICON' | translate" [value]="configuration?.Icon.Name" 
+            <pep-group-buttons-settings [groupType]="'custom'" [btnsArray]="iconPosition" [header]=""
                     [disabled]="!configuration?.Icon.UseIcon"
-                    [options]="iconNames" (valueChange)="onFieldChange('Icon.Name',$event)" [emptyOption]="false" 
-                    styleType="regular">
-        </pep-select>
-        <pep-group-buttons-settings [groupType]="'custom'" [btnsArray]="iconPosition" [header]=""
-                [disabled]="!configuration?.Icon.UseIcon"
-                [subHeader]="'EDITOR.CONTENT.ICON.CHOOSE_POSITION' | translate"
-                [btnKey]="configuration?.Icon?.Position">
-        </pep-group-buttons-settings>
-        <pep-checkbox class="checkbox-as-title" 
-                [value]="configuration?.Badge?.UseBadge || 'false'" 
-                [label]="'EDITOR.CONTENT.BADGE' | translate" 
-                [renderTitle]="false" 
-                (valueChange)="onFieldChange('Badge.UseBadge',$event)">
-        </pep-checkbox>
-        <pep-textbox [label]="'EDITOR.CONTENT.LINK_BADGE' | translate" 
-                [disabled]="!configuration?.Badge.UseBadge"
-                [value]="configuration?.Badge?.LinkBadge || ''" 
-                (valueChange)="onFieldChange('Badge.LinkBadge',$event)">
-        </pep-textbox>
+                    [subHeader]="'EDITOR.CONTENT.ICON.CHOOSE_POSITION' | translate"
+                    [btnKey]="configuration?.Icon?.Position">
+            </pep-group-buttons-settings>
+       
+        <div>
+            <pep-checkbox class="checkbox-as-title" 
+                    [value]="configuration?.Badge?.UseBadge || 'false'" 
+                    [label]="'EDITOR.CONTENT.BADGE' | translate" 
+                    [renderTitle]="false" 
+                    (valueChange)="onFieldChange('Badge.UseBadge',$event)">
+            </pep-checkbox>
+            <pep-textbox [label]="'EDITOR.CONTENT.LINK_BADGE' | translate"
+                    [class]="'pep-field-no-spacing'"
+                    [disabled]="!configuration?.Badge.UseBadge"
+                    [value]="configuration?.Badge?.LinkBadge || ''" 
+                    (valueChange)="onFieldChange('Badge.LinkBadge',$event)">
+            </pep-textbox>
+        </div>
         <div>
             <pep-field-title [label]="'EDITOR.CONTENT.ON_CLICK_FLOW' | translate"></pep-field-title>
             <pep-flow-picker-button [flowHostObject]="flowHostObject" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
         </div>
-        <!-- <div>
-            <label class="body-lg bold ellipsis">{{'EDITOR.CONTENT.ON_CLICK_FLOW' | translate}}</label> 
-            <label class="body-xs normal">{{'EDITOR.CONTENT.FLOW_DESCRIPTION' | translate}}</label>
-            <pep-button class="script-button" [value]="btnFlowName ? btnFlowName : ('EDITOR.GENERAL.CHOOSE_FLOW' | translate)" (buttonClick)="openFlowPickerDialog();"></pep-button>
-         </div> -->
     </div>
 </div>

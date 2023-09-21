@@ -42,13 +42,9 @@ export class ButtonEditorComponent implements OnInit {
     @Output() duplicateClick: EventEmitter<any> = new EventEmitter();
 
     dialogRef: MatDialogRef<any>;
-    iconslist: Array<string> = ['system_move','arrow_back','arrow_back_right','arrow_back_left','arrow_down', 'arrow_down_alt', 'arrow_either', 'arrow_left', 'arrow_left_alt', 'arrow_right','arrow_right_alt', 
-             'arrow_two_ways_hor_l', 'arrow_two_ways_hor_r','arrow_two_ways_ver_b', 'arrow_two_ways_ver_t','arrow_up', 'arrow_up_alt', 'brand_pepperi','device_desktop','device_mobile','device_responsive','device_tablet','indicator_dot_placeholder','leaf_round','leaf_skiny','misc_excel','no_image','no_image_2','number_coins','number_decimal','number_dollar','number_euro','number_minus','number_number','number_percent','number_plus','ripples_transparent','shopping_cart','shopping_paper',
-             'system_alert','system_attach','system_avatar','system_bell','system_bell_on','system_bin','system_bolt','system_boolean','system_chat','system_circle','system_close','system_copy','system_doc','system_door','system_dot_ellipsis','system_edit','system_education','system_email','system_file_download','system_file_upload','system_file_upload_cloud','system_filter','system_filter_2','system_flag','system_folder','system_full_screen','system_heart','system_help','system_home','system_image','system_info','system_inventory','system_link','system_lock','system_logic','system_map','system_megaphone','system_menu','system_menu_dots','system_must',
-             'system_off_line','system_ok','system_pause','system_phone','system_play','system_print','system_processing','system_question','system_radio_btn','system_rotate_device','system_search','system_select','system_settings','system_signature','system_spinner','system_support','system_texterea','system_tool','system_view','text_align_center','text_align_left','text_align_right','text_long_text','text_short_text','time_cal','time_datetime','time_duration','time_time','view_card_lg','view_card_md','view_card_sm','view_line','view_matrix,view_table']
-    
+
     buttonStyles: Array<PepButton> = [];
-    iconNames: Array<PepButton> = [];
+
     iconPosition: Array<PepButton> = [];
     flowHostObject;
 
@@ -66,10 +62,6 @@ export class ButtonEditorComponent implements OnInit {
             { key: 'regular', value: this.translate.instant('EDITOR.CONTENT.STYLES.REGULAR')},
             { key: 'strong', value: this.translate.instant('EDITOR.CONTENT.STYLES.STRONG')} 
         ];
-
-        this.iconslist.forEach(icon => {
-            this.iconNames.push({ key: icon, value: icon})
-        });
 
         this.iconPosition = [
             { key: 'start', value: this.translate.instant('EDITOR.CONTENT.ICON.POSITION.START'), callback: (event: any) => this.onFieldChange('Icon.Position',event) },

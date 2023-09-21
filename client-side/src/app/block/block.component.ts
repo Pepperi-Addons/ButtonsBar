@@ -106,20 +106,14 @@ export class ButtonsComponent implements OnInit {
         const widthType = this.configuration?.ButtonsBarConfig?.Structure?.WidthType || null;
         if(widthType){
             const size = widthType === 'set' ? 'min-content' : widthType === 'stretch' ? '1fr' : 'max-content'
+            const alignCont = this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical == 'middle' ? 'center' : this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical;
             return {
                 display: 'grid',
                 'grid-template-columns': `repeat(${this.configuration.ButtonsBarConfig.Structure.MaxColumns}, ${size})`,
                 'justify-content': this.configuration.ButtonsBarConfig.Structure.Alignment.Horizontal,
+                'align-content': alignCont, 
                 'align-items': this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical == 'middle' ? 'center' : this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical
             };
         }
-        // else{
-        //     return {
-        //         display: 'grid',
-        //         'grid-template-columns': `repeat(${this.configuration.ButtonsBarConfig.Structure.MaxColumns}, 2)`,
-        //         'justify-content': 'left',
-        //         'align-items': this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical  == 'middle' ? 'center' : this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical
-        //       };
-        // }
     }
 }

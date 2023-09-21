@@ -2,6 +2,7 @@
 
 .btn-container{
     height: inherit;
+    grid-template-rows: min-content;
 
     &.gap-xs{
         gap: variables.$spacing-xs;
@@ -18,6 +19,9 @@
     &.gap-xl{
         gap: variables.$spacing-xl;
     }
+    &.gap-2xl{
+        gap: variables.$spacing-2xl;
+    }
 
     ::ng-deep .mat-badge-content{
         z-index: 1;
@@ -25,10 +29,15 @@
     
     .pep-button{
         display: flex;
+        justify-content: center;
+
         .icon-container{
+            display: flex;
             aspect-ratio : 1/1;
-            max-height: 4rem;
-            overflow: hidden;
+            padding: variables.$spacing-xs;
+
+            // max-height: 4rem;
+            // overflow: hidden;
 
             img{
                 aspect-ratio: 1/1;
