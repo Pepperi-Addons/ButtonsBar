@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule, TranslateService, TranslateStore } from '@ngx-translate/core';
 import { PepAddonService } from '@pepperi-addons/ngx-lib';
-import { ButtonsEditorComponent } from './index';
+import { BlockEditorComponent } from './index';
 import { ButtonEditorModule } from '../component/button-editor/button-editor.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -17,7 +17,7 @@ import { FlowService } from '../../services/flow.service';
 import { config } from '../app.config';
 
 @NgModule({
-    declarations: [ButtonsEditorComponent],
+    declarations: [BlockEditorComponent],
     imports: [
         CommonModule,
         MatTabsModule,
@@ -40,14 +40,14 @@ import { config } from '../app.config';
             }, isolate: false
         }),
     ],
-    exports: [ButtonsEditorComponent],
+    exports: [BlockEditorComponent],
     providers: [
         TranslateStore,
         FlowService
         // Add here all used services.
     ]
 })
-export class ButtonsEditorModule {
+export class BlockEditorModule {
     constructor(
         translate: TranslateService,
         private pepAddonService: PepAddonService

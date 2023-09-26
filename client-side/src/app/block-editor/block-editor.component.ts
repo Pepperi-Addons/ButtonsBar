@@ -14,7 +14,7 @@ import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
     templateUrl: './block-editor.component.html',
     styleUrls: ['./block-editor.component.scss']
 })
-export class ButtonsEditorComponent implements OnInit {
+export class BlockEditorComponent implements OnInit {
     
     @Input()
     //set hostObject(value: any) {

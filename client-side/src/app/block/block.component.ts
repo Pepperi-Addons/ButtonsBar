@@ -8,7 +8,7 @@ import { CLIENT_ACTION_ON_BUTTONS_BAR_CLICK } from 'shared';
     templateUrl: './block.component.html',
     styleUrls: ['./block.component.scss']
 })
-export class ButtonsComponent implements OnInit {
+export class BlockComponent implements OnInit {
     @Input() 
     set hostObject(value: IHostObject){
         this.configuration = value?.configuration;
