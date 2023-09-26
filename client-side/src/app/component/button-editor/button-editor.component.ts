@@ -67,7 +67,7 @@ export class ButtonEditorComponent implements OnInit {
             { key: 'start', value: this.translate.instant('EDITOR.CONTENT.ICON.POSITION.START'), callback: (event: any) => this.onFieldChange('Icon.Position',event) },
             { key: 'end', value: this.translate.instant('EDITOR.CONTENT.ICON.POSITION.END'), callback: (event: any) => this.onFieldChange('Icon.Position',event) }
         ]
-
+      
         this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.Flow || null)); 
     }
 

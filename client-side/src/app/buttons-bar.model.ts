@@ -2,6 +2,7 @@ import { PepHorizontalAlignment, PepSizeType, PepStyleType} from "@pepperi-addon
 import { PepShadowSettings} from "@pepperi-addons/ngx-composite-lib/shadow-settings";
 import { PepColorSettings } from "@pepperi-addons/ngx-composite-lib/color-settings";
 import { IconNameSubset, PepIconType } from "@pepperi-addons/ngx-lib/icon";
+import { Page } from "@pepperi-addons/papi-sdk";
 export type textColor = 'system-primary' | 'dimmed' | 'invert' | 'strong';
 export type verticalAlignment = 'start' | 'middle' | 'end';
 export type textPositionStyling = 'overlaid' | 'separated';
@@ -50,15 +51,6 @@ export class Structure{
     Alignment: Alignment = new Alignment();
 }
 
-// export class Button {
-//     Height: number = 16;
-//     TextColor: textColor = 'system-primary';
-//     Border: PepColorSettings = new PepColorSettings();
-//     DropShadow: PepShadowSettings = new PepShadowSettings();
-//     UseRoundCorners: boolean = true;
-//     RoundCornersSize: PepSizeType = 'md';
-// }
-
 export class IButtonsBarConfig{
     Structure: Structure = new Structure();
     OnLoadFlow: any;
@@ -71,4 +63,12 @@ export class ButtonEditor {
     Icon: Icon = new Icon();
     Badge: ButtonBadge = new ButtonBadge();
     Flow: any;
+}
+
+export interface IEditorHostObject {
+    state: any;
+    configuration: IButtonsBar;
+    configurationSource: IButtonsBar;
+    pageConfiguration: any;
+    page: Page
 }

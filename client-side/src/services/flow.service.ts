@@ -12,25 +12,22 @@ export class FlowService {
 
     ngOnInit() {
     }
-
+  
     public prepareFlowHostObject(flow) {
         let flowHostObject = {};
         const runFlowData =  flow ? JSON.parse(atob(flow)) : null;
-        //const runFlowData = this.menuItem?.Flow || null;
-     
         const fields = {
-            configuration: {
-                Type: 'Object'
-            },
+            // configuration: {
+            //     Type: 'Object'
+            // },
         };
-        
-        if (runFlowData) {
-            this.flowDynamicParameters.forEach((value, key) => {
-                fields[key] = {
-                    Type: value || 'String'
-                };
-            });
-        }
+
+
+        this.flowDynamicParameters.forEach((value, key) => {
+            fields[key] = {
+                Type: value || 'String'
+            };
+        });
         
         flowHostObject['runFlowData'] = runFlowData?.FlowKey ? runFlowData : undefined;
         flowHostObject['fields'] = fields;
@@ -90,4 +87,5 @@ export class FlowService {
         this.setPageParameterOptions(page);
         this.setFlowDynamicParameters(page, currentPageConfiguration);
     }
+
 }

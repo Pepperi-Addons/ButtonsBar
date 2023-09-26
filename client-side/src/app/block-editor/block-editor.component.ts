@@ -2,11 +2,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { ButtonsBarService } from 'src/services/buttons-bar.service';
 import { CdkDragDrop, CdkDragEnd, CdkDragStart, moveItemInArray} from '@angular/cdk/drag-drop';
-import { IButtonsBar, ButtonEditor, IButtonsBarConfig } from '../buttons-bar.model';
+import { IButtonsBar, ButtonEditor, IButtonsBarConfig, IEditorHostObject } from '../buttons-bar.model';
 import { PepButton } from '@pepperi-addons/ngx-lib/button';
-import { MatDialogRef } from '@angular/material/dialog';
+
 import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
 import { FlowService } from 'src/services/flow.service';
+import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
 
 @Component({
     selector: 'page-block-editor',
@@ -16,7 +17,26 @@ import { FlowService } from 'src/services/flow.service';
 export class ButtonsEditorComponent implements OnInit {
     
     @Input()
-    set hostObject(value: any) {
+    //set hostObject(value: any) {
+    set hostObject(value: IEditorHostObject) {
+        if (value && value.configuration && Object.keys(value.configuration).length > 0) {
+            this._configuration = value.configuration
+            if(value.configurationSource && Object.keys(value.configuration).length > 0){
+                this.configurationSource = value.configurationSource;
+            }
+        } else {
+            this.loadDefaultConfiguration();
+        }
+
+        this.initPageConfiguration(value?.pageConfiguration);
+        this._page = value?.page;
+        this.flowService.recalculateEditorData(this._page, this._pageConfiguration);
+        
+        //prepare the flow host hobject
+        this.flowHostObject = this.flowService.prepareFlowHostObject(this._configuration.ButtonsBarConfig.OnLoadFlow || null);  
+        
+        
+        /*
         if (value && value.configuration && Object.keys(value.configuration).length) {
                 this._configuration = value.configuration;
                 if(value.configurationSource && Object.keys(value.configuration).length > 0){
@@ -28,11 +48,17 @@ export class ButtonsEditorComponent implements OnInit {
             if(this.blockLoaded){
                 this.loadDefaultConfiguration();
             }
-        }
+        }*/
         
         //this._pageParameters = value?.pageParameters || {};
        //this._pageConfiguration = value?.pageConfiguration || this.defaultPageConfiguration;
     }
+
+    private _page: Page;
+    get page(): Page {
+        return this._page;
+    }
+    
     private _configuration: IButtonsBar;
     get configuration(): IButtonsBar {
         return this._configuration;
@@ -43,8 +69,9 @@ export class ButtonsEditorComponent implements OnInit {
     public widthTypes: Array<PepButton> = [];
     public verticalAlign : Array<PepButton> = [];
     public selectedButton: number = -1;
-    
-    private dialogRef: MatDialogRef<any>;
+
+    private defaultPageConfiguration: PageConfiguration = { "Parameters": []};
+    private _pageConfiguration: PageConfiguration;
 
     flowHostObject;
 
@@ -93,6 +120,10 @@ export class ButtonsEditorComponent implements OnInit {
         }
   
         this.updateHostObjectField(`ButtonsBarConfig.Structure.${key}`, value);
+    }
+
+    private initPageConfiguration(value: PageConfiguration = null) {
+        this._pageConfiguration = value || JSON.parse(JSON.stringify(this.defaultPageConfiguration));
     }
 
     private loadDefaultConfiguration() {
