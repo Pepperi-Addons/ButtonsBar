@@ -45,7 +45,7 @@ export class BlockComponent implements OnInit {
     }
     onButtonClick(event){
         this.hostEvents.emit({
-            action: 'buton-click',
+            action: 'button-click',
             buttonKey: event?.id || ''
         })
     }
