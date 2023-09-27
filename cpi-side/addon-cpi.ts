@@ -14,7 +14,6 @@ export const router = Router()
 // })
 
 router.post('/run_on_load_event', async (req, res) => {
-    debugger;
     let configuration = req?.body?.Configuration;
     const state = req.body.State;
     // check if flow configured to on load --> run flow (instaed of onload event)
@@ -28,7 +27,6 @@ router.post('/run_on_load_event', async (req, res) => {
 });
 
 router.post('/run_button_click_event', async (req, res) => {
-    debugger;
     const configuration = req?.body?.Configuration;
     const state = req.body.State;
 
