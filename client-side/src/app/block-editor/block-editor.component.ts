@@ -34,24 +34,6 @@ export class BlockEditorComponent implements OnInit {
         
         //prepare the flow host hobject
         this.flowHostObject = this.flowService.prepareFlowHostObject(this._configuration.ButtonsBarConfig.OnLoadFlow || null);  
-        
-        
-        /*
-        if (value && value.configuration && Object.keys(value.configuration).length) {
-                this._configuration = value.configuration;
-                if(value.configurationSource && Object.keys(value.configuration).length > 0){
-                    this.configurationSource = value.configurationSource;
-                }
-                this.flowHostObject = this.flowService.prepareFlowHostObject(this._configuration.ButtonsBarConfig.OnLoadFlow || null);  
-        } else {
-            // TODO - NEED TO ADD DEFAULT CARD
-            if(this.blockLoaded){
-                this.loadDefaultConfiguration();
-            }
-        }*/
-        
-        //this._pageParameters = value?.pageParameters || {};
-       //this._pageConfiguration = value?.pageConfiguration || this.defaultPageConfiguration;
     }
 
     private _page: Page;

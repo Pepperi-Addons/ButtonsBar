@@ -4,6 +4,7 @@
         <div *ngFor ="let btn of configuration?.Buttons || []; let currentButton = index"
                 mat-button class="pep-button button-title-with-icon"
                 [ngClass]="[configuration?.ButtonsBarConfig?.Structure?.Size || 'md', btn?.Style || 'weak']"
+                [ngStyle]="{'cursor': configuration?.Buttons[btn.id].Flow ? 'pointer' : 'inherit'}"
                 [style.width]="btnWidth"
                 matBadge="{{(btn?.Badge?.UseBadge && btn?.Badge?.LinkBadge ? btn.Badge.LinkBadge : '')}}" 
                 matBadgeColor="accent" 
