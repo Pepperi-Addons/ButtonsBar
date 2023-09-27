@@ -17,9 +17,9 @@ export class FlowService {
         let flowHostObject = {};
         const runFlowData =  flow ? JSON.parse(atob(flow)) : null;
         const fields = {
-            // configuration: {
-            //     Type: 'Object'
-            // },
+            configuration: {
+                Type: 'Object'
+            },
         };
 
 

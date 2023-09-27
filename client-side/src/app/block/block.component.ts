@@ -43,8 +43,14 @@ export class BlockComponent implements OnInit {
     ngOnChanges(e: any): void {
 
     }
-
     onButtonClick(event){
+        this.hostEvents.emit({
+            action: 'buton-click',
+            buttonKey: event?.id || ''
+        })
+    }
+
+    onButtonClick2(event){
        const flowData = event.Flow || null;
        const parameters = {
             configuration: this.configuration,
