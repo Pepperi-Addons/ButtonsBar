@@ -88,10 +88,6 @@ export class BlockEditorComponent implements OnInit {
         this.blockLoaded = true;
     }
 
-    async ngOnChanges(e: any): Promise<void> {
-       
-    }
-
     onFieldChange(key, event){
         const value = event && event.source && event.source.key ? event.source.key : event && event.source && event.source.value ? event.source.value :  event;
  
@@ -108,6 +104,84 @@ export class BlockEditorComponent implements OnInit {
 
     private initPageConfiguration(value: PageConfiguration = null) {
         this._pageConfiguration = value || JSON.parse(JSON.stringify(this.defaultPageConfiguration));
+    }
+
+    private updatePageConfigurationObject() {
+        this.initPageConfiguration();
+    
+        // Get the consume parameters keys from the filters.
+        const consumeParametersKeys = this.getConsumeParametersKeys();
+        this.addParametersToPageConfiguration(consumeParametersKeys, false, true);
+        
+        // After adding the params to the page configuration need to recalculate the page parameters.
+        this.flowService.recalculateEditorData(this._page, this._pageConfiguration);
+
+        this.emitSetPageConfiguration();
+    }
+
+    private getConsumeParametersKeys(): Map<string, string> {
+        const parametersKeys = new Map<string, string>();
+
+        // Move on all load flows
+        if (this.configuration.ButtonsBarConfig.OnLoadFlow) {
+            let flowParams = JSON.parse(atob(this.configuration.ButtonsBarConfig.OnLoadFlow)).FlowParams;
+            Object.keys(flowParams).forEach(key => {
+                const param = flowParams[key];
+                if (param.Source === 'Dynamic') {
+                    parametersKeys.set(param.Value, param.Value);
+                }
+            });
+        }
+        
+
+        // Move on all the buttons flows.
+        for (let index = 0; index < this.configuration.Buttons.length; index++) {
+            const btn = this.configuration.Buttons[index];
+            if (btn.Flow) {
+                let flowParams = JSON.parse(atob(btn.Flow)).FlowParams;
+                Object.keys(flowParams).forEach(key => {
+                    const param = flowParams[key];
+                    if (param.Source === 'Dynamic') {
+                        parametersKeys.set(param.Value, param.Value);
+                    }
+                });
+            }
+        }
+
+        return parametersKeys;
+    }
+
+    private addParametersToPageConfiguration(paramsMap: Map<string, string>, isProduce: boolean, isConsume: boolean) {
+        const params = Array.from(paramsMap.values());
+
+        // Add the parameters to page configuration.
+        for (let index = 0; index < params.length; index++) {
+            const parameterKey = params[index];
+            if(parameterKey !== 'configuration'){
+                const paramIndex = this._pageConfiguration.Parameters.findIndex(param => param.Key === parameterKey);
+
+                // If the parameter exist, update the consume/produce.
+                if (paramIndex >= 0) {
+                    this._pageConfiguration.Parameters[paramIndex].Consume = this._pageConfiguration.Parameters[paramIndex].Consume || isConsume;
+                    this._pageConfiguration.Parameters[paramIndex].Produce = this._pageConfiguration.Parameters[paramIndex].Produce || isProduce;
+                } else {
+                    // Add the parameter only if not exist.
+                    this._pageConfiguration.Parameters.push({
+                        Key: parameterKey,
+                        Type: 'String',
+                        Consume: isConsume,
+                        Produce: isProduce
+                    });
+                }
+            }
+        }
+    }
+
+    private emitSetPageConfiguration() {
+        this.hostEvents.emit({
+            action: 'set-page-configuration',
+            pageConfiguration: this._pageConfiguration
+        });
     }
 
     private loadDefaultConfiguration() {
@@ -225,5 +299,10 @@ export class BlockEditorComponent implements OnInit {
         const base64Flow = btoa(JSON.stringify(flowData));
         this.configuration.ButtonsBarConfig.OnLoadFlow = base64Flow;
         this.updateHostObjectField(`ButtonsBarConfig.OnLoadFlow`, base64Flow);
+        this.updatePageConfigurationObject();
+    }
+
+    onButtonFlowChanged(event: any) {
+        this.updatePageConfigurationObject();
     }
 }

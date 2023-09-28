@@ -40,7 +40,8 @@ export class ButtonEditorComponent implements OnInit {
     @Output() removeClick: EventEmitter<any> = new EventEmitter();
     @Output() editClick: EventEmitter<any> = new EventEmitter();
     @Output() duplicateClick: EventEmitter<any> = new EventEmitter();
-
+    @Output() flowChange: EventEmitter<any> = new EventEmitter();
+    
     dialogRef: MatDialogRef<any>;
 
     buttonStyles: Array<PepButton> = [];
@@ -103,13 +104,13 @@ export class ButtonEditorComponent implements OnInit {
         }
     }
 
-    private updateHostObject(updatePageConfiguration = false) {
-        this.hostEvents.emit({
-            action: 'set-configuration',
-            configuration: this.configuration,
-            updatePageConfiguration: updatePageConfiguration
-        });
-    }
+    // private updateHostObject(updatePageConfiguration = false) {
+    //     this.hostEvents.emit({
+    //         action: 'set-configuration',
+    //         configuration: this.configuration,
+    //         updatePageConfiguration: updatePageConfiguration
+    //     });
+    // }
 
     private updateHostObjectField(fieldKey: string, value: any) {
         this.hostEvents.emit({
@@ -121,8 +122,10 @@ export class ButtonEditorComponent implements OnInit {
 
     onFlowChange(flowData: any) {
         const base64Flow = btoa(JSON.stringify(flowData));
+        debugger;
         this.configuration.Flow = base64Flow;
-        this.updateHostObjectField(`Buttons[${this.id}]['Flow']`, base64Flow);
+        //this.updateHostObjectField(`Buttons[${this.id}]['Flow']`, base64Flow);
+        this.flowChange.emit();
     }
 
     onIconChange(event){
