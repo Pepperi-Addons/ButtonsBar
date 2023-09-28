@@ -13,8 +13,13 @@ import { PepTextboxModule } from '@pepperi-addons/ngx-lib/textbox';
 import { PepFlowPickerButtonModule } from '@pepperi-addons/ngx-composite-lib/flow-picker-button';
 import { PepGroupButtonsModule } from '@pepperi-addons/ngx-lib/group-buttons';
 import { PepGroupButtonsSettingsModule } from '@pepperi-addons/ngx-composite-lib/group-buttons-settings';
+import { PepIconRegistry, pepIconNumberPlus } from '@pepperi-addons/ngx-lib/icon';
 import { FlowService } from '../../services/flow.service';
 import { config } from '../app.config';
+
+const pepIcons = [
+    pepIconNumberPlus
+]
 
 @NgModule({
     declarations: [BlockEditorComponent],
@@ -50,8 +55,10 @@ import { config } from '../app.config';
 export class BlockEditorModule {
     constructor(
         translate: TranslateService,
+        private pepIconRegistry: PepIconRegistry,
         private pepAddonService: PepAddonService
     ) {
+        this.pepIconRegistry.registerIcons(pepIcons);
         this.pepAddonService.setDefaultTranslateLang(translate);
     }
 }

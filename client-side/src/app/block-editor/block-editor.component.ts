@@ -24,16 +24,18 @@ export class BlockEditorComponent implements OnInit {
             if(value.configurationSource && Object.keys(value.configuration).length > 0){
                 this.configurationSource = value.configurationSource;
             }
+
+            //prepare the flow host hobject
+            this.flowHostObject = this.flowService.prepareFlowHostObject(this._configuration.ButtonsBarConfig.OnLoadFlow || null);  
         } else {
-            this.loadDefaultConfiguration();
+            if(this.blockLoaded){
+                this.loadDefaultConfiguration();
+            }
         }
 
         this.initPageConfiguration(value?.pageConfiguration);
         this._page = value?.page;
         this.flowService.recalculateEditorData(this._page, this._pageConfiguration);
-        
-        //prepare the flow host hobject
-        this.flowHostObject = this.flowService.prepareFlowHostObject(this._configuration.ButtonsBarConfig.OnLoadFlow || null);  
     }
 
     private _page: Page;
