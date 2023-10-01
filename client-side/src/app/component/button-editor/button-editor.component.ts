@@ -122,9 +122,8 @@ export class ButtonEditorComponent implements OnInit {
 
     onFlowChange(flowData: any) {
         const base64Flow = btoa(JSON.stringify(flowData));
-        debugger;
         this.configuration.Flow = base64Flow;
-        //this.updateHostObjectField(`Buttons[${this.id}]['Flow']`, base64Flow);
+        this.updateHostObjectField(`Buttons[${this.id}]['Flow']`, base64Flow);
         this.flowChange.emit();
     }
 
