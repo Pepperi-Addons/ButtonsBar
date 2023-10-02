@@ -52,40 +52,7 @@ export class BlockComponent implements OnInit {
             })
         }
     }
-
-    // onButtonClick2(event){
-    //    const flowData = event.Flow || null;
-    //    const parameters = {
-    //         configuration: this.configuration,
-    //         ButtonConfiguration: event
-    //     }
-    //     if(flowData){
-    //     // Parse the params if exist.
-    //     // const params = this.getScriptParams(event.ScriptData); 
-    //         try{
-    //             const eventData = {
-    //                 detail: {
-    //                     eventKey: CLIENT_ACTION_ON_BUTTONS_BAR_CLICK,
-    //                     eventData: { flow: flowData, parameters: parameters },
-    //                     completion: (res: any) => {
-    //                             if (res?.configuration && Object.keys(res.configuration).length > 0) {
-    //                                 this.configuration.Buttons[event.id] = {...this.configuration.Buttons[event.id], ...res.configuration};
-    //                             } else {
-    //                                 // Show default error.
-    //                             }
-    //                         }
-    //                 }
-    //             };
-
-    //             const customEvent = new CustomEvent('emit-event', eventData);
-    //             window.dispatchEvent(customEvent);
-    //         }
-    //         catch(err){
-
-    //         }
-    //     }
-    // }
-
+    
     setBtnWidth(){
         const btnStructure = this.configuration?.ButtonsBarConfig?.Structure || null;
         

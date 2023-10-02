@@ -17,7 +17,6 @@ import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
 export class BlockEditorComponent implements OnInit {
     
     @Input()
-    //set hostObject(value: any) {
     set hostObject(value: IEditorHostObject) {
         if (value && value.configuration && Object.keys(value.configuration).length > 0) {
             this._configuration = value.configuration
@@ -185,7 +184,7 @@ export class BlockEditorComponent implements OnInit {
        this.updateHostObject();
     }
 
-    onBannerDuplicateClick(event){
+    onButtonDuplicateClick(event){
         let btn = new ButtonEditor;
         btn = JSON.parse(JSON.stringify(this.configuration.Buttons[event.id]));
 
@@ -261,7 +260,7 @@ export class BlockEditorComponent implements OnInit {
         for (let index = 0; index < this.configuration?.Buttons?.length; index++) {
             const btn = this.configuration.Buttons[index];
             if (btn?.Flow) {
-                let flowParams = JSON.parse(atob(btn.Flow)).FlowParams || null;
+                const flowParams = JSON.parse(atob(btn.Flow)).FlowParams || null;
                 Object.keys(flowParams).forEach(key => {
                     const param = flowParams[key];
                     if (param.Source === 'Dynamic') {

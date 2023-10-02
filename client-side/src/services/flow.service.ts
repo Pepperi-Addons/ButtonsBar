@@ -12,17 +12,17 @@ export class FlowService {
 
     ngOnInit() {
     }
-  
+
     public prepareFlowHostObject(flow) {
         let flowHostObject = {};
         const runFlowData =  flow ? JSON.parse(atob(flow)) : null;
+
         const fields = {
             configuration: {
                 Type: 'Object'
             },
         };
-
-
+        
         this.flowDynamicParameters.forEach((value, key) => {
             fields[key] = {
                 Type: value || 'String'
@@ -60,7 +60,6 @@ export class FlowService {
 
     private setFlowDynamicParameters(page: Page, currentPageConfiguration: PageConfiguration): void {
         const flowDynamicParameters = new Map<string, SchemeFieldType>();
-
         // Go over all the blocks in the page.
         for (let index = 0; index < page?.Blocks?.length; index++) {
             const block = page.Blocks[index];
@@ -87,5 +86,4 @@ export class FlowService {
         this.setPageParameterOptions(page);
         this.setFlowDynamicParameters(page, currentPageConfiguration);
     }
-
 }
