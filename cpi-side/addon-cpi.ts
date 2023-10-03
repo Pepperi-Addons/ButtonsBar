@@ -40,6 +40,19 @@ router.post('/run_button_click_event', async (req, res) => {
     res.json({Configuration: configuration});
 });
 
+router.post('/on_block_state_change', async (req, res) => {
+    const state = req.body.State || {};
+    const changes = req.body.Changes || {};
+    const configuration = req.body.Configuration;
+    const cpiService = new ButtonsBarCpiService();
+
+    const mergeState = {...state, ...changes};
+    //configuration.filters = await cpiService.PrepareFiltersData(configuration.filters || [], mergeState, req.context);
+    res.json({
+        State: mergeState,
+        Configuration: configuration,
+    });
+});
 
 /**********************************  client events starts /**********************************/
 // pepperi.events.intercept(CLIENT_ACTION_ON_BUTTONS_BAR_CLICK as any, {}, async (data): Promise<any> => {

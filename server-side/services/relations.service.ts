@@ -47,6 +47,7 @@ export class RelationsService {
                 EditorElementName: `${blockName.toLocaleLowerCase()}-editor-element-${this.client.AddonUUID}`,
                 BlockLoadEndpoint: "/addon-cpi/run_on_load_event",
                 BlockButtonClickEndpoint: "/addon-cpi/run_button_click_event",
+                BlockStateChangeEndpoint: '/addon-cpi/on_block_state_change',
         }
         return await this.upsertRelation(blockRelation);
     }
