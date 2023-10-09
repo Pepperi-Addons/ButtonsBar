@@ -37,12 +37,20 @@ export class BlockComponent implements OnInit {
     }
     
     ngOnInit(): void {
+
+        this.hostEvents.emit({
+            action: 'register-state-change',
+            callback: this.registerStateChange.bind(this)
+        });
+
         this.setBtnWidth();
     }
 
-    ngOnChanges(e: any): void {
-
+    private registerStateChange(data: {state: any, configuration: any}) {
+        this._configuration = data.configuration;
+        this.setBtnWidth();
     }
+
     onButtonClick(event){
         //check if button has flow
         if(event?.id != null && this.configuration?.Buttons[event.id].Flow){

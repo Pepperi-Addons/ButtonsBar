@@ -1,4 +1,6 @@
 import '@pepperi-addons/cpi-node'
+import * as _ from 'lodash'
+
 //import { CLIENT_ACTION_ON_BUTTONS_BAR_CLICK } from 'shared';
 import ButtonsBarCpiService from './buttons-bar-cpi.service';
 
@@ -27,19 +29,30 @@ router.post('/run_on_load_event', async (req, res) => {
 });
 
 router.post('/run_button_click_event', async (req, res) => {
-    let configuration = req?.body?.Configuration;
+    let configurationRes;
+    let mergeState
     const state = req.body.State;
     const btnID = req.body.ButtonKey;
+    let configuration = state?.configuration || req?.body?.Configuration;
+    
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.Buttons[btnID]?.Flow){
         const cpiService = new ButtonsBarCpiService();
         //CALL TO FLOWS AND SET CONFIGURATION
         const result: any = await cpiService.getOptionsFromFlow(configuration.Buttons[btnID].Flow || [], state, req.context, configuration);
-        configuration = result?.configuration || configuration;
-    }
-    res.json({Configuration: configuration});
-});
+      
+        //Statechanges = _.differenceWith(_.toPairs(result.configuration), _.toPairs(configuration), _.isEqual);
 
+        configurationRes = result?.configuration || configuration;
+        mergeState = Object.assign(Object.assign({}, state), {configuration:  configurationRes});
+    }
+    res.json({
+        State: mergeState,
+        Configuration: configurationRes,
+    });
+    res.json({Configuration: configurationRes});
+});
+  
 router.post('/on_block_state_change', async (req, res) => {
     const state = req.body.State || {};
     const changes = req.body.Changes || {};
@@ -50,7 +63,7 @@ router.post('/on_block_state_change', async (req, res) => {
     //configuration.filters = await cpiService.PrepareFiltersData(configuration.filters || [], mergeState, req.context);
     res.json({
         State: mergeState,
-        Configuration: configuration,
+        Configuration: changes,
     });
 });
 
