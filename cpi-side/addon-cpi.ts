@@ -33,18 +33,15 @@ router.post('/run_button_click_event', async (req, res) => {
     let mergeState
     const state = req.body.State;
     const btnID = req.body.ButtonKey;
-    let configuration = state?.configuration || req?.body?.Configuration;
-    
+    const configuration = state?.configuration || req?.body?.Configuration;
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.Buttons[btnID]?.Flow){
         const cpiService = new ButtonsBarCpiService();
         //CALL TO FLOWS AND SET CONFIGURATION
         const result: any = await cpiService.getOptionsFromFlow(configuration.Buttons[btnID].Flow || [], state, req.context, configuration);
-      
         //Statechanges = _.differenceWith(_.toPairs(result.configuration), _.toPairs(configuration), _.isEqual);
-
         configurationRes = result?.configuration || configuration;
-        mergeState = Object.assign(Object.assign({}, state), {configuration:  configurationRes});
+        mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
     }
     res.json({
         State: mergeState,
@@ -52,7 +49,7 @@ router.post('/run_button_click_event', async (req, res) => {
     });
     res.json({Configuration: configurationRes});
 });
-  
+
 router.post('/on_block_state_change', async (req, res) => {
     const state = req.body.State || {};
     const changes = req.body.Changes || {};
