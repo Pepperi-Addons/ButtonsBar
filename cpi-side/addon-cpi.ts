@@ -24,7 +24,7 @@ router.post('/run_on_load_event', async (req, res) => {
         const cpiService = new ButtonsBarCpiService();
         //CALL TO FLOWS AND SET CONFIGURATION
         const result: any = await cpiService.getOptionsFromFlow(configuration.ButtonsBarConfig.OnLoadFlow || [], state, req.context, configuration);
-        configurationRes = result?.configuration || configuration; 
+        configurationRes = result?.configuration || configuration;
     }
     const mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
     res.json({
@@ -46,7 +46,7 @@ router.post('/run_button_click_event', async (req, res) => {
         //Statechanges = _.differenceWith(_.toPairs(result.configuration), _.toPairs(configuration), _.isEqual);
         configurationRes = result?.configuration || configuration;
     }
-    const  mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
+    const mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
     res.json({
         State: mergeState,
         Configuration: configurationRes,
