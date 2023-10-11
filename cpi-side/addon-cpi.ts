@@ -26,9 +26,13 @@ router.post('/run_on_load_event', async (req, res) => {
         const result: any = await cpiService.getOptionsFromFlow(configuration.ButtonsBarConfig.OnLoadFlow || [], state, req.context, configuration);
         configurationRes = result?.configuration || configuration;
     }
-   // const mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
+    const difference = _.differenceWith(_.toPairs(configurationRes), _.toPairs(configuration), _.isEqual);
+    difference.forEach(diff => {
+        state[diff[0]] = diff[1];
+    });
+
     res.json({
-        //State: mergeState,
+        State: state,
         Configuration: configurationRes,
     });
 });
@@ -36,7 +40,16 @@ router.post('/run_on_load_event', async (req, res) => {
 router.post('/run_button_click_event', async (req, res) => {
     const state = req.body.State;
     const btnID = req.body.ButtonKey;
-    const configuration = state?.configuration || req?.body?.Configuration;
+    const configuration = state?.configuration;
+
+    for (const prop in configuration) {
+        // skip loop if the property dont exits on state object
+        if (state.hasOwnProperty(prop)) {
+            //update configuration with the object from state
+            configuration[prop] = state[prop];
+        }
+    }
+
     let configurationRes = configuration;
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.Buttons[btnID]?.Flow){
@@ -46,9 +59,13 @@ router.post('/run_button_click_event', async (req, res) => {
         //Statechanges = _.differenceWith(_.toPairs(result.configuration), _.toPairs(configuration), _.isEqual);
         configurationRes = result?.configuration || configuration;
     }
-    const mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
+    const difference = _.differenceWith(_.toPairs(configurationRes), _.toPairs(configuration), _.isEqual);
+    difference.forEach(diff => {
+        state[diff[0]] = diff[1];
+    });
+
     res.json({
-        State: mergeState,
+        State: state,
         Configuration: configurationRes,
     });
 });
