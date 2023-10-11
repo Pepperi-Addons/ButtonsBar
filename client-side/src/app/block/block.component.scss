@@ -2,6 +2,7 @@
 
 .btn-container{
     height: inherit;
+    overflow: hidden;
     grid-template-rows: min-content;
 
     &.gap-xs{
