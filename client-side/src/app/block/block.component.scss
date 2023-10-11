@@ -25,8 +25,9 @@
 
     ::ng-deep .mat-badge-content{
         z-index: 1;
-        font-size: .1rem;
-        background-color: rgb(255, 255, 255);
+        font-size: 1rem;
+        background-color: rgb(0, 0, 0);
+        color: rgb(255,255,255);
     }
     
     .pep-button{
