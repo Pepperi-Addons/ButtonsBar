@@ -26,9 +26,9 @@ router.post('/run_on_load_event', async (req, res) => {
         const result: any = await cpiService.getOptionsFromFlow(configuration.ButtonsBarConfig.OnLoadFlow || [], state, req.context, configuration);
         configurationRes = result?.configuration || configuration;
     }
-    const mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
+   // const mergeState = Object.assign(Object.assign({}, state), {configuration: configurationRes});
     res.json({
-        State: mergeState,
+        //State: mergeState,
         Configuration: configurationRes,
     });
 });
