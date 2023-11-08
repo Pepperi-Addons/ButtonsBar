@@ -12,7 +12,7 @@
                 matBadgeOverlap=true
                 matBadgeSize="{{(configuration?.ButtonsBarConfig?.Structure?.Size == 'sm' ? 'small' : configuration?.ButtonsBarConfig?.Structure?.Size == 'md' ? 'medium' : 'large')}}"
                 (click)="onButtonClick(btn)">
-             <div *ngIf="btn.Icon?.Position == 'end'">
+             <div *ngIf="btn.Icon?.Position == 'end'" class="ellipsis">
                 {{btn?.Label?.UseLabel ? btn.Label.Label : ''}}   
             </div>
             <div class="icon-container" *ngIf="btn.Icon.UseIcon">
