@@ -41,7 +41,7 @@ router.post('/run_button_click_event', async (req, res) => {
     const state = req.body.State;
     const btnKey = req.body.ButtonKey;
     const configuration = req?.body?.Configuration;
-    
+
     for (const prop in configuration) {
         // skip loop if the property dont exits on state object
         if (state.hasOwnProperty(prop)) {
@@ -52,7 +52,7 @@ router.post('/run_button_click_event', async (req, res) => {
 
     let configurationRes = configuration;
     const btn = configuration?.Buttons?.filter(b => { return b.ButtonKey === btnKey })[0] || null;
-        
+
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (btn?.Flow){
         const cpiService = new ButtonsBarCpiService();
