@@ -57,7 +57,7 @@ router.post('/run_button_click_event', async (req, res) => {
     if (btn?.Flow){
         const cpiService = new ButtonsBarCpiService();
         //CALL TO FLOWS AND SET CONFIGURATION
-        const result: any = await cpiService.getOptionsFromFlow(configuration.Buttons[btnID].Flow || [], state, req.context, configuration);
+        const result: any = await cpiService.getOptionsFromFlow(btn.Flow || [], state, req.context, configuration);
         //Statechanges = _.differenceWith(_.toPairs(result.configuration), _.toPairs(configuration), _.isEqual);
         configurationRes = result?.configuration || configuration;
     }
