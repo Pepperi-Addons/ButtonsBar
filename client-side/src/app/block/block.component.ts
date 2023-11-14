@@ -53,10 +53,10 @@ export class BlockComponent implements OnInit {
 
     onButtonClick(event){
         //check if button has flow
-        if(event?.id != null && this.configuration?.Buttons[event.id].Flow){
+        if(event?.Flow && event.ButtonKey){
             this.hostEvents.emit({
                 action: 'button-click',
-                buttonKey: event.id
+                buttonKey: event.ButtonKey
             })
         }
     }

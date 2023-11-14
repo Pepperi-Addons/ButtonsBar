@@ -66,5 +66,7 @@
             <pep-field-title [label]="'EDITOR.CONTENT.ON_CLICK_FLOW' | translate"></pep-field-title>
             <pep-flow-picker-button [flowHostObject]="flowHostObject" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
         </div>
+        <pep-textbox [label]="'EDITOR.CONTENT.ACTION_KEY' | translate" type="string" [disabled]="true" 
+        [value]="configuration?.ButtonKey"></pep-textbox>
     </div>
 </div>

@@ -1,7 +1,6 @@
 import { PepHorizontalAlignment, PepSizeType, PepStyleType} from "@pepperi-addons/ngx-lib";
-import { PepShadowSettings} from "@pepperi-addons/ngx-composite-lib/shadow-settings";
-import { PepColorSettings } from "@pepperi-addons/ngx-composite-lib/color-settings";
-import { IconNameSubset, PepIconType } from "@pepperi-addons/ngx-lib/icon";
+import { v4 as uuid } from 'uuid';
+
 import { Page } from "@pepperi-addons/papi-sdk";
 export type textColor = 'system-primary' | 'dimmed' | 'invert' | 'strong';
 export type verticalAlignment = 'start' | 'middle' | 'end';
@@ -63,6 +62,7 @@ export class ButtonEditor {
     Icon: Icon = new Icon();
     Badge: ButtonBadge = new ButtonBadge();
     Flow: any;
+    ButtonKey: string = uuid();
 }
 
 export interface IEditorHostObject {
