@@ -28,7 +28,7 @@ export class RelationsService {
                             "Alignment": {
                                 "Type": "Object",
                                 "Fields": {
-                                    "Horizontal":{
+                                    "Horizontal": {
                                         "Type": "String",
                                          "ConfigurationPerScreenSize": true
                                     }
