@@ -5,6 +5,45 @@ export class RelationsService {
 
     papiClient: PapiClient
     bundleFileName = '';
+    buttonSchema = {
+        "Fields": {
+            "ButtonsBarConfig": {
+                "Type": "Object",
+                "Fields": { // Gallery.MaxColumns
+                    "Structure": {
+                        "Type": "Object",
+                        "Fields": {
+                            "MaxColumns": {
+                                "Type": "Integer",
+                                "ConfigurationPerScreenSize": true
+                            },
+                            "Gap": {
+                                "Type": "String",
+                                "ConfigurationPerScreenSize": true
+                            },
+                            "Width": {
+                                "Type": "String",
+                                "ConfigurationPerScreenSize": true
+                            },
+                            "Alignment": {
+                                "Type": "Object",
+                                "Fields": {
+                                    "Horizontal":{
+                                        "Type": "String",
+                                         "ConfigurationPerScreenSize": true
+                                    }
+                                }
+                            },
+                            "Size": {
+                                "Type": "String",
+                                "ConfigurationPerScreenSize": true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     constructor(private client: Client) {
         this.papiClient = new PapiClient({
@@ -45,6 +84,7 @@ export class RelationsService {
                 EditorComponentName: `${blockName}EditorComponent`, // This is should be the block editor component name (from the client-side)
                 EditorModuleName: `${blockName}EditorModule`, // This is should be the block editor module name (from the client-side)}
                 EditorElementName: `${blockName.toLocaleLowerCase()}-editor-element-${this.client.AddonUUID}`,
+                Schema: this.buttonSchema,
                 BlockLoadEndpoint: "/addon-cpi/run_on_load_event",
                 BlockButtonClickEndpoint: "/addon-cpi/run_button_click_event",
                 BlockStateChangeEndpoint: '/addon-cpi/on_block_state_change'

@@ -33,6 +33,12 @@ export async function uninstall(client: Client, request: Request): Promise<Addon
 }
 
 export async function upgrade(client: Client, request: Request): Promise<AddonAPISyncResult> {
+    try {
+        const service = new RelationsService(client);
+        await service.upsertRelations();
+    } catch (err) {
+        throw new Error(`Failed to create relations. error - ${err}`);
+    }
     return {success: true, resultObject: {}}
 }
 

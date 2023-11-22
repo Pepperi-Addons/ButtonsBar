@@ -16,6 +16,7 @@ import { PepGroupButtonsSettingsModule } from '@pepperi-addons/ngx-composite-lib
 import { PepIconRegistry, pepIconNumberPlus } from '@pepperi-addons/ngx-lib/icon';
 import { FlowService } from '../../services/flow.service';
 import { config } from '../app.config';
+import { PepNgxCompositeLibModule } from '@pepperi-addons/ngx-composite-lib';
 
 const pepIcons = [
     pepIconNumberPlus
@@ -31,6 +32,7 @@ const pepIcons = [
         PepFlowPickerButtonModule,
         PepSliderModule,
         PepGroupButtonsModule,
+        PepNgxCompositeLibModule,
         PepFieldTitleModule,
         PepGroupButtonsSettingsModule,
         PepTextboxModule,
