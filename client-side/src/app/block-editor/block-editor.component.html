@@ -25,7 +25,10 @@
                         (btnkeyChange)="onFieldChange('Gap',$event)">
         </pep-group-buttons-settings>
     
-        <pep-group-buttons-settings [groupType]="'custom'" [btnsArray]="widthTypes" [header]="'EDITOR.GENERAL.WIDTH' | translate"
+        <pep-group-buttons-settings pepResetConfigurationField="ButtonsBarConfig.Structure.WidthType" 
+        [hideReset]="configuration?.ButtonsBarConfig?.Structure?.WidthType === configurationSource?.ButtonsBarConfig?.Structure?.WidthType"  
+        [resetHostEvents]="hostEvents"
+        [groupType]="'custom'" [btnsArray]="widthTypes" [header]="'EDITOR.GENERAL.WIDTH' | translate"
                 [subHeader]="'EDITOR.GENERAL.WIDTH_TYPE' | translate"
                 [btnKey]="configuration?.ButtonsBarConfig?.Structure?.WidthType">
         </pep-group-buttons-settings>

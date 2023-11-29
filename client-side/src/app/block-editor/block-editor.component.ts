@@ -4,10 +4,10 @@ import { ButtonsBarService } from 'src/services/buttons-bar.service';
 import { CdkDragDrop, CdkDragEnd, CdkDragStart, moveItemInArray} from '@angular/cdk/drag-drop';
 import { IButtonsBar, ButtonEditor, IButtonsBarConfig, IEditorHostObject } from '../buttons-bar.model';
 import { PepButton } from '@pepperi-addons/ngx-lib/button';
-
 import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
 import { FlowService } from 'src/services/flow.service';
 import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
+import { v4 as uuid } from 'uuid';
 
 @Component({
     selector: 'page-block-editor',
@@ -189,6 +189,7 @@ export class BlockEditorComponent implements OnInit {
         btn = JSON.parse(JSON.stringify(this.configuration.Buttons[event.id]));
 
         btn.id = (this.configuration?.Buttons.length);
+        btn.ButtonKey = uuid();
         this.configuration?.Buttons.push(btn);
         this._configuration = this.configuration
         this.updateHostObject();  

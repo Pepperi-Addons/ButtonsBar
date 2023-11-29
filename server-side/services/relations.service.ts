@@ -25,6 +25,10 @@ export class RelationsService {
                                 "Type": "String",
                                 "ConfigurationPerScreenSize": true
                             },
+                            "WidthType": {
+                                "Type": "String",
+                                "ConfigurationPerScreenSize": true
+                            },
                             "Alignment": {
                                 "Type": "Object",
                                 "Fields": {
