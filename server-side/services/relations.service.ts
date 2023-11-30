@@ -35,6 +35,10 @@ export class RelationsService {
                                     "Horizontal": {
                                         "Type": "String",
                                          "ConfigurationPerScreenSize": true
+                                    },
+                                    "Vertical": {
+                                        "Type": "String",
+                                         "ConfigurationPerScreenSize": true
                                     }
                                 }
                             },

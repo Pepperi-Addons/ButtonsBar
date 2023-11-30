@@ -44,7 +44,10 @@
                 (valueChange)="onFieldChange('Width',$event)">
         </pep-textbox>
 
-        <pep-group-buttons-settings [groupType]="'custom'" 
+        <pep-group-buttons-settings pepResetConfigurationField="ButtonsBarConfig.Structure.Alignment.Vertical" 
+                                    [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Vertical === configurationSource?.ButtonsBarConfig?.Structure?.Alignment?.Vertical"  
+                                    [resetHostEvents]="hostEvents"
+                                    [groupType]="'custom'" 
                                     [btnsArray]="verticalAlign" 
                                     [header]="'EDITOR.GENERAL.ALIGN' | translate"
                                     [subHeader]="'EDITOR.GENERAL.VERTICAL_POS' | translate" 
