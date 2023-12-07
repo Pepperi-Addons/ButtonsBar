@@ -61,6 +61,15 @@
                     [value]="configuration?.Badge?.LinkBadge || ''" 
                     (valueChange)="onFieldChange('Badge.LinkBadge',$event)">
             </pep-textbox>
+            <pep-color [key]="'color1'" 
+                        [label]="'EDITOR.CONTENT.BADGE_COLOR' | translate"
+                        [disabled]="!configuration?.Badge.UseBadge"
+                        [value]="configuration?.Badge.Color"
+                        [checkAAComplient]="true" 
+                        [showAAComplient]="true" 
+                        [type]="'any'"
+                        (valueChange)="onFieldChange('Badge.Color',$event)">
+            </pep-color>
         </div>
         <div>
             <pep-field-title [label]="'EDITOR.CONTENT.ON_CLICK_FLOW' | translate"></pep-field-title>

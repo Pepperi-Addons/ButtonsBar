@@ -4,10 +4,11 @@ import { ButtonsBarService } from 'src/services/buttons-bar.service';
 import { CdkDragDrop, CdkDragEnd, CdkDragStart, moveItemInArray} from '@angular/cdk/drag-drop';
 import { IButtonsBar, ButtonEditor, IButtonsBarConfig, IEditorHostObject } from '../buttons-bar.model';
 import { PepButton } from '@pepperi-addons/ngx-lib/button';
-import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
 import { FlowService } from 'src/services/flow.service';
 import { Page, PageConfiguration } from '@pepperi-addons/papi-sdk';
 import { v4 as uuid } from 'uuid';
+import { PepAddonService } from '@pepperi-addons/ngx-lib';
+import { config } from '../app.config';
 
 @Component({
     selector: 'page-block-editor',
@@ -62,7 +63,8 @@ export class BlockEditorComponent implements OnInit {
 
     constructor(private translate: TranslateService,
                 private buttonsBarService: ButtonsBarService,
-                private flowService: FlowService) {}
+                private flowService: FlowService,
+                private pepAddonService: PepAddonService) {}
 
     async ngOnInit(): Promise<void> {
 
@@ -142,11 +144,18 @@ export class BlockEditorComponent implements OnInit {
             }
         }
     }
+
+    private createNewButton(){
+        let btn = new ButtonEditor();
+        btn.Icon.Url = this.pepAddonService.getAddonStaticFolder(config.AddonUUID) + 'assets/images/' + 'system-bolt.svg';
+        return btn;
+    }
+    
     private getDefaultButtons(numOfCards: number = 0): Array<ButtonEditor> {
         let buttons: Array<ButtonEditor> = [];
        
         for(var i=0; i < numOfCards; i++){
-            let btn = new ButtonEditor();
+            let btn = this.createNewButton();
             btn.id = i;
             
             
@@ -166,7 +175,7 @@ export class BlockEditorComponent implements OnInit {
     }
 
     addNewButtonClick() {
-        let btn = new ButtonEditor();
+        let btn = this.createNewButton();
         btn.id = (this.configuration?.Buttons.length);
         btn.Label.Label = this.getOrdinal(btn.id+1) + this.translate.instant('EDITOR.GENERAL.BUTTON');
         

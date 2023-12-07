@@ -21,7 +21,7 @@
                         [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Gap === configurationSource?.ButtonsBarConfig?.Structure?.Gap"  
                         [resetHostEvents]="hostEvents"
                         [groupType]="'sizes'" [subHeader]="'EDITOR.GENERAL.GAP' | translate"
-                        [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Gap" [useNone]="true" [excludeKeys]="['xs','xl','xxl']"
+                        [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Gap" [useNone]="false" [excludeKeys]="['xl','2xl']"
                         (btnkeyChange)="onFieldChange('Gap',$event)">
         </pep-group-buttons-settings>
     

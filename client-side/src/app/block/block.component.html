@@ -2,12 +2,12 @@
      [ngStyle]="getStyles()"
      [ngClass]="['gap-'+ configuration?.ButtonsBarConfig?.Structure?.Gap || 'none']">
         <div *ngFor ="let btn of configuration?.Buttons || []; let currentButton = index"
-                mat-button class="pep-button button-title-with-icon"
+                mat-button class="pep-button button-title-with-icon btn-bar-addon"
                 [ngClass]="[configuration?.ButtonsBarConfig?.Structure?.Size || 'md', btn?.Style || 'weak']"
-                [ngStyle]="{'cursor': configuration?.Buttons[btn.id].Flow ? 'pointer' : 'inherit'}"
+                [ngStyle]="{'cursor': configuration?.Buttons[btn.id].Flow ? 'pointer' : 'inherit',
+                            padding: !btn?.Label.UseLabel || btn.Label.Label == '' ? 0 : 'revert-layer'}"
                 [style.width]="btnWidth"
                 matBadge="{{(btn?.Badge?.UseBadge && btn?.Badge?.LinkBadge ? btn.Badge.LinkBadge : '')}}" 
-                matBadgeColor="accent" 
                 matBadgePosition="above after"
                 matBadgeOverlap=true
                 matBadgeSize="{{(configuration?.ButtonsBarConfig?.Structure?.Size == 'sm' ? 'small' : configuration?.ButtonsBarConfig?.Structure?.Size == 'md' ? 'medium' : 'large')}}"
@@ -16,9 +16,10 @@
                 {{btn?.Label?.UseLabel ? btn.Label.Label : ''}}   
             </div>
             <div class="icon-container" *ngIf="btn.Icon.UseIcon">
-                <img [src]="btn.Icon?.Url || ''"/>
+                <img [src]="btn.Icon?.Url || ''"
+                     [ngStyle]="{'height': !btn?.Label.UseLabel || btn.Label.Label == '' ? '70%' : ''}"/>
             </div>  
-            <div *ngIf="btn.Icon?.Position == 'start'">
+            <div *ngIf="btn.Icon?.Position == 'start'" class="ellipsis">
                 {{btn?.Label?.UseLabel ? btn.Label.Label : ''}}   
             </div>
         </div>

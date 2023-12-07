@@ -1,4 +1,5 @@
 @use '@pepperi-addons/ngx-lib/src/core/style/abstracts/variables' as variables;
+@use '@pepperi-addons/ngx-lib/src/core/style/abstracts/mixins' as ngx-mixins;
 
 .btn-container{
     height: inherit;
@@ -12,10 +13,10 @@
         gap: variables.$spacing-sm;
     }
     &.gap-md{
-        gap: variables.$spacing-md;
+        gap: variables.$spacing-lg;
     }
     &.gap-lg{
-        gap: variables.$spacing-lg;
+        gap: variables.$spacing-2xl;
     }
     &.gap-xl{
         gap: variables.$spacing-xl;
@@ -24,11 +25,35 @@
         gap: variables.$spacing-2xl;
     }
 
-    ::ng-deep .mat-badge-content{
-        z-index: 1;
-        font-size: 1rem;
-        background-color: rgb(0, 0, 0);
-        color: rgb(255,255,255);
+    ::ng-deep .mat-badge{
+        //z-index: 1;
+        //font-size: 1rem;
+        @include ngx-mixins.pep-badge();
+
+        .mat-badge-content{
+            width: unset;
+            border-radius: 1rem;
+            padding: 0 0.5rem;  
+            max-width: 80%;   
+        }
+        // &.xs,
+        // &.sm{
+        //     .mat-badge-content{
+        //         @include ngx-mixins.font-body(variables.$fs-2xs, variables.$lh-md);
+        //     }
+        // }
+     
+        // &.md,
+        // &.lg{
+        //     .mat-badge-content{
+        //         @include ngx-mixins.font-body(variables.$fs-xs, variables.$lh-md);
+        //     }
+        // }
+        
+        // &.xl,
+        // &.xxl{
+        //         @include ngx-mixins.font-body(variables.$fs-md, variables.$lh-md);
+        // }
     }
     
     .pep-button{
@@ -37,15 +62,49 @@
 
         .icon-container{
             display: flex;
-            aspect-ratio : 1/1;
+            /*aspect-ratio : 1/1;*/
             padding: variables.$spacing-xs;
+            align-items: center;
+            justify-content: center;
 
             // max-height: 4rem;
             // overflow: hidden;
 
-            img{
-                aspect-ratio: 1/1;
+            // img{
+            //     aspect-ratio: 1/1;
+            // }
         }
+
+        &.sm{
+            .icon-container{
+                img{
+                    height: variables.$fs-sm;
+                }
+            }
+        }
+
+        &.md{
+            .icon-container{
+                img{
+                    height: variables.$fs-md;
+                }
+            }
+        }
+
+        &.lg{
+            .icon-container{
+                img{
+                    height: variables.$fs-xl;
+                }
+            }
+        }
+
+        &.xl{
+            .icon-container{
+                img{
+                    height: variables.$fs-2xl;
+                }
+            }
         }
     }
 }

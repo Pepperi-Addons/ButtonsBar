@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { IButtonsBar, IHostObject } from '../buttons-bar.model';
 //import { CLIENT_ACTION_ON_BUTTONS_BAR_CLICK } from 'shared';
 
@@ -8,7 +8,7 @@ import { IButtonsBar, IHostObject } from '../buttons-bar.model';
     templateUrl: './block.component.html',
     styleUrls: ['./block.component.scss']
 })
-export class BlockComponent implements OnInit {
+export class BlockComponent implements OnInit, AfterViewInit {
     @Input() 
     set hostObject(value: IHostObject){
         this.configuration = value?.configuration;
@@ -37,7 +37,6 @@ export class BlockComponent implements OnInit {
     }
     
     ngOnInit(): void {
-
         this.hostEvents.emit({
             action: 'register-state-change',
             callback: this.registerStateChange.bind(this)
@@ -46,9 +45,19 @@ export class BlockComponent implements OnInit {
         this.setBtnWidth();
     }
 
+    ngOnChanges(changes) { 
+        if (changes) {
+        }
+    }
+
+    ngAfterViewInit() {
+        this.setBadgeBackground();
+    }
+
     private registerStateChange(data: {state: any, configuration: any}) {
-        this._configuration = data.configuration;
+        this.configuration = data.configuration;
         this.setBtnWidth();
+        setTimeout(() => this.setBadgeBackground(), 1 );
     }
 
     onButtonClick(event){
@@ -61,6 +70,14 @@ export class BlockComponent implements OnInit {
         }
     }
     
+    setBadgeBackground(){
+        const badgeArr = document.querySelectorAll(".btn-bar-addon .mat-badge-content");
+        badgeArr.forEach((badge, index) => {
+            //badge['style'].backgroundColor = this.configuration.Buttons[index].Badge.Color;
+            badge.setAttribute( 'style', 'background-color: '+ this.configuration.Buttons[index].Badge.Color +' !important' );
+        })
+    }
+
     setBtnWidth(){
         const btnStructure = this.configuration?.ButtonsBarConfig?.Structure || null;
         
@@ -84,6 +101,7 @@ export class BlockComponent implements OnInit {
                 }
             }
         }
+        //setTimeout(function(){ this.setBadgeBackground() }, 1000);
     }
 
     getStyles(){

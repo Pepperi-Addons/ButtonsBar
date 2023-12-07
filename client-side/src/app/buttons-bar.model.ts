@@ -29,6 +29,7 @@ export class Icon {
 export class ButtonBadge {
     UseBadge: boolean = false;
     LinkBadge: string = '';
+    Color: string = 'hsl(0, 100%, 50%)';
 }
 
 export interface IHostObject {
