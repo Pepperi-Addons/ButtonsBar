@@ -21,13 +21,13 @@ router.post('/run_on_load_event', async (req, res) => {
     const state = req.body.State;
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.ButtonsBarConfig?.OnLoadFlow){
-        try{
+        try {
             const cpiService = new ButtonsBarCpiService();
             //CALL TO FLOWS AND SET CONFIGURATION
             const result: any = await cpiService.getOptionsFromFlow(configuration.ButtonsBarConfig.OnLoadFlow || [], state, req.context, configuration);
             configurationRes = result?.configuration || configuration;
         }
-        catch(err){
+        catch (err){
             configurationRes = configuration;
         }
     }
