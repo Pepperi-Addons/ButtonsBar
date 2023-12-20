@@ -158,8 +158,6 @@ export class BlockEditorComponent implements OnInit {
             let btn = this.createNewButton();
             btn.id = i;
             
-            
-
             btn.Label.Label = this.getOrdinal(i+1) + this.translate.instant('EDITOR.GENERAL.BUTTON');
             //card.Description = this.translate.instant('GALLERY_EDITOR.AWESOMETEXTFORTHE') + ' ' + this.getOrdinal(i+1) + this.translate.instant('GALLERY_EDITOR.ITEM');
             buttons.push(btn);
