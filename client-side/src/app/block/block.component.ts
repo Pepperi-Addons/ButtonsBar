@@ -11,8 +11,10 @@ import { IButtonsBar, IHostObject } from '../buttons-bar.model';
 export class BlockComponent implements OnInit {
     @Input() 
     set hostObject(value: IHostObject){
-        this.configuration = value?.configuration;
-        this.setBtnWidth();
+        if(value?.configuration && Object.keys(value.configuration).length){
+            this.configuration = value?.configuration;
+            this.setBtnWidth();
+        }
     }
 
     @Output() hostEvents: EventEmitter<any> = new EventEmitter<any>();
@@ -47,11 +49,14 @@ export class BlockComponent implements OnInit {
     }
 
     private registerStateChange(data: {state: any, configuration: any}) {
-        //this._configuration = data.configuration;
-        if(data?.configuration){
-            this.mergeConfiguration(data.configuration);
-            this.setBtnWidth();
+        if(!this.configuration && data?.configuration){
+            this.configuration = data.configuration;
         }
+        else if(data?.configuration){
+            this.mergeConfiguration(data.configuration);
+        }
+        this.setBtnWidth();
+        
     }
 
     private mergeConfiguration(newConfiguration){
