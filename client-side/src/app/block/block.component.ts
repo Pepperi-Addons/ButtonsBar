@@ -11,8 +11,10 @@ import { IButtonsBar, IHostObject } from '../buttons-bar.model';
 export class BlockComponent implements OnInit, AfterViewInit {
     @Input() 
     set hostObject(value: IHostObject){
-        this.configuration = value?.configuration;
-        this.setBtnWidth();
+        if(value?.configuration && Object.keys(value.configuration).length){
+            this.configuration = value?.configuration;
+            this.setBtnWidth();
+        }
     }
 
     @Output() hostEvents: EventEmitter<any> = new EventEmitter<any>();
@@ -55,9 +57,23 @@ export class BlockComponent implements OnInit, AfterViewInit {
     }
 
     private registerStateChange(data: {state: any, configuration: any}) {
-        this.configuration = data.configuration;
+        if(!this.configuration && data?.configuration){
+            this.configuration = data.configuration;
+        }
+        else if(data?.configuration){
+            this.mergeConfiguration(data.configuration);
+        }
         this.setBtnWidth();
-        setTimeout(() => this.setBadgeBackground(), 1 );
+        
+    }
+
+    private mergeConfiguration(newConfiguration){
+        for (const prop in this.configuration) {
+            // skip loop if the property dont exits on new object
+            if (!newConfiguration.hasOwnProperty(prop)) continue;
+            //update configuration with the object from new object
+            this.configuration[prop] = newConfiguration[prop]; 
+        }
     }
 
     onButtonClick(event){
