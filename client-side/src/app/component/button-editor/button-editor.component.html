@@ -11,8 +11,8 @@
         *ngIf="showActions"
         sizeType="xs"
         [items]="actiosMenu"
-        (menuItemClick)="onMenuItemClick($event)"
-></pep-menu>
+        (menuItemClick)="onMenuItemClick($event)">
+    </pep-menu>
     <div class="editorCont" *ngIf="id == selectedButton"> 
         <div>
             <pep-checkbox class="checkbox-as-title" 

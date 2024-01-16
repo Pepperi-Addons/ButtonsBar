@@ -74,8 +74,8 @@ export class ButtonEditorComponent implements OnInit {
         ]
         
         this.actiosMenu = [
-            { key: 'delete', text: this.translate.instant('EDITOR.CONTENT.DELETE') },
-            { key: 'duplicate', text: this.translate.instant('EDITOR.CONTENT.DUPLICATE') }
+            { key: 'duplicate', text: this.translate.instant('EDITOR.CONTENT.DUPLICATE') },
+            { key: 'delete', text: this.translate.instant('EDITOR.CONTENT.DELETE') }
         ]
 
         this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.Flow || null)); 
@@ -87,13 +87,6 @@ export class ButtonEditorComponent implements OnInit {
         return n + (s[(v-20)%10] || s[v] || s[0]);
     }
 
-    onRemoveClick() {
-        this.removeClick.emit({id: this.id});
-    }
-
-    onDuplicateClick(){
-        this.duplicateClick.emit({id: this.id});
-    }
     onMenuItemClick(item: IPepMenuItemClickEvent){
         if(item?.source?.key == 'delete'){
             this.removeClick.emit({id: this.id});
