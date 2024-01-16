@@ -38,6 +38,7 @@
             "STYLE": "Style",
             "CHOOSE_STYLE": "Choose button style",
             "DUPLICATE": "Duplicate",
+            "DELETE": "Delete",
             "STYLES":{
                 "WEAK": "Weak",
                 "REGULAR": "Regular",

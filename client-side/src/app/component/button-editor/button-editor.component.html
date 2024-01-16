@@ -7,10 +7,12 @@
         <span class="body-sm ellipsis">{{id + 1}}.&nbsp;</span>
         <span class="body-sm color-link bold ellipsis" title="">{{configuration?.Label?.Label || 'TITLE'}}</span>
     </div>
-    <div class="actions" *ngIf="showActions">
-        <pep-button sizeType="xs" iconName="system_copy" title="{{'EDITOR.CONTENT.DUPLICATE' | translate}}" (buttonClick)="onDuplicateClick();"></pep-button>
-        <pep-button classNames="caution" sizeType="xs" iconName="system_bin" (buttonClick)="onRemoveClick();"></pep-button>
-    </div>
+    <pep-menu
+        *ngIf="showActions"
+        sizeType="xs"
+        [items]="actiosMenu"
+        (menuItemClick)="onMenuItemClick($event)"
+></pep-menu>
     <div class="editorCont" *ngIf="id == selectedButton"> 
         <div>
             <pep-checkbox class="checkbox-as-title" 

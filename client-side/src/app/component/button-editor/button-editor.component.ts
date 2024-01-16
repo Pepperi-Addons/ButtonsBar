@@ -8,6 +8,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { PepAddonBlockLoaderService } from '@pepperi-addons/ngx-lib/remote-loader';
 import { ButtonsBarService } from 'src/services/buttons-bar.service';
 import { FlowService } from '../../../services/flow.service';
+import { IPepMenuItemClickEvent, PepMenuItem, PepMenuItemType } from '@pepperi-addons/ngx-lib/menu';
+import { PepInternalMenuItem } from '@pepperi-addons/ngx-lib/menu/menu-item.component';
 
 interface groupButtonArray {
     key: string; 
@@ -49,6 +51,8 @@ export class ButtonEditorComponent implements OnInit {
     iconPosition: Array<PepButton> = [];
     flowHostObject;
 
+    actiosMenu: Array<PepMenuItem> = [];
+
     constructor(
         private translate: TranslateService,
         private flowService: FlowService,
@@ -68,7 +72,12 @@ export class ButtonEditorComponent implements OnInit {
             { key: 'start', value: this.translate.instant('EDITOR.CONTENT.ICON.POSITION.START'), callback: (event: any) => this.onFieldChange('Icon.Position',event) },
             { key: 'end', value: this.translate.instant('EDITOR.CONTENT.ICON.POSITION.END'), callback: (event: any) => this.onFieldChange('Icon.Position',event) }
         ]
-      
+        
+        this.actiosMenu = [
+            { key: 'delete', text: this.translate.instant('EDITOR.CONTENT.DELETE') },
+            { key: 'duplicate', text: this.translate.instant('EDITOR.CONTENT.DUPLICATE') }
+        ]
+
         this.flowHostObject = this.flowService.prepareFlowHostObject((this.configuration?.Flow || null)); 
     }
 
@@ -84,6 +93,14 @@ export class ButtonEditorComponent implements OnInit {
 
     onDuplicateClick(){
         this.duplicateClick.emit({id: this.id});
+    }
+    onMenuItemClick(item: IPepMenuItemClickEvent){
+        if(item?.source?.key == 'delete'){
+            this.removeClick.emit({id: this.id});
+        }
+        else if(item?.source?.key == 'duplicate'){
+            this.duplicateClick.emit({id: this.id});
+        }
     }
 
     onEditClick() {
@@ -103,14 +120,6 @@ export class ButtonEditorComponent implements OnInit {
             
         }
     }
-
-    // private updateHostObject(updatePageConfiguration = false) {
-    //     this.hostEvents.emit({
-    //         action: 'set-configuration',
-    //         configuration: this.configuration,
-    //         updatePageConfiguration: updatePageConfiguration
-    //     });
-    // }
 
     private updateHostObjectField(fieldKey: string, value: any) {
         this.hostEvents.emit({
