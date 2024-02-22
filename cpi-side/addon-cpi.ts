@@ -17,12 +17,16 @@ export const router = Router()
 
 router.post('/run_on_load_event', async (req, res) => {
     const configuration = req?.body?.Configuration;
-    let configurationRes = configuration;
+    const cpiService = new ButtonsBarCpiService();
     const state = req.body.State;
+
+    // Set translations;
+    cpiService.setUserTranslations(configuration);
+    let configurationRes = configuration;
+
     // check if flow configured to on load --> run flow (instaed of onload event)
     if (configuration?.ButtonsBarConfig?.OnLoadFlow){
         try {
-            const cpiService = new ButtonsBarCpiService();
             //CALL TO FLOWS AND SET CONFIGURATION
             const result: any = await cpiService.getOptionsFromFlow(configuration.ButtonsBarConfig.OnLoadFlow || [], state, req.context, configuration);
             configurationRes = result?.configuration || configuration;

@@ -5,6 +5,11 @@ class ButtonsBarCpiService {
     /***********************************************************************************************/
     //                              Private functions
     /************************************************************************************************/
+
+    /***********************************************************************************************/
+    //                              Public functions
+    /************************************************************************************************/
+
     public async getOptionsFromFlow(flowStr: string, state: any, context: IContext | undefined, configuration = {}): Promise<any> {
         const flowData: FlowObject = flowStr?.length ? JSON.parse(Buffer.from(flowStr, 'base64').toString('utf8')) : {};
         if (flowData?.FlowKey?.length > 0) {
@@ -38,8 +43,21 @@ class ButtonsBarCpiService {
             return {};
         }
     }
-     /***********************************************************************************************/
-    //                              Public functions
-    /************************************************************************************************/
+
+    async setUserTranslations(configuration: any): Promise<void> {
+
+        if (configuration?.Buttons?.length > 0) {
+            for (let index = 0; index < configuration.Buttons.length; index++) {
+                const button = configuration.Buttons[index];
+
+                if (button.Label?.UseLabel) {
+                    button.Label.Label = await pepperi.translations.translate({ key: button.Label.Label });
+                }
+                if (button.Badge?.UseBadge) {
+                    button.Badge.LinkBadge = await pepperi.translations.translate({ key: button.Badge.LinkBadge });
+                }
+            }
+        }
+    }
 }
 export default ButtonsBarCpiService;

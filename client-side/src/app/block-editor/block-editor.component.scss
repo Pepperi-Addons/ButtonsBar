@@ -1,64 +1,19 @@
-.editor-tabs {
+@use '@pepperi-addons/ngx-lib/src/core/style/abstracts/variables' as ngx-variables;
+
+.page-builder-editor-tabs {
     ::ng-deep{
-        .mat-tab-header-pagination{
-            display: none;
-        }
-        .mat-tab-labels {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-
-            .mat-tab-label {
-                padding: 0 .75rem !important;
-            }
-        }
-
-        .group-buttons-container {
-            //margin-bottom: 1rem;
-            .rotate180{
-                transform: rotate(180deg);
-            }
-            .toggle-buttons{
-                width: 100%;
-            }
-        }
-
-            .mat-tab-body {
-                &.mat-tab-body-active {
-                    overflow: unset;
-
-                    .mat-tab-body-content {
-                        overflow: unset;
-                        display: flex;
-                        flex-direction: column;
-                        padding-inline: 0;
-                        /*row-gap: 1rem;*/
-
-                    }
-                }
-            }
-        // }
-
-        .mat-slider-disabled{
+        .mat-slider-disabled {
             opacity: 0.6;
         }
-    }
-    
 
-
-    pep-textbox{
-        &.pep-field{
-            margin-bottom: 0 !important;
+        .pep-reset-configuration-field-container {
+            margin-bottom: calc(#{ngx-variables.$spacing-lg} * -1) !important;
         }
     }
 
-    // pep-group-buttons{
-    //     ::ng-deep pep-icon{
-    //         max-height: 1rem;
-    //     }
-    // }
-
-    // pep-slider{
-    //         margin-bottom: 1rem;
-    // }
-    
+    .available-buttons {
+        display: flex;
+        flex-flow: column;
+        gap: ngx-variables.$spacing-sm;
+    }
 }

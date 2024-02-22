@@ -59,7 +59,7 @@
             "ON_CLICK_FLOW": "On click flow",
             "ACTION_KEY": "Action key",
             "FLOW_DESCRIPTION": "Choose flow to run when button click",
-            "ADD_BUTTON": "Add new button"
+            "ADD_BUTTON": "Add button"
         }
 
    }

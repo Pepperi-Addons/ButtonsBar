@@ -51,7 +51,7 @@ export class ButtonEditorComponent implements OnInit {
     iconPosition: Array<PepButton> = [];
     flowHostObject;
 
-    actiosMenu: Array<PepMenuItem> = [];
+    actionsMenu: Array<PepMenuItem> = [];
 
     constructor(
         private translate: TranslateService,
@@ -73,7 +73,7 @@ export class ButtonEditorComponent implements OnInit {
             { key: 'end', value: this.translate.instant('EDITOR.CONTENT.ICON.POSITION.END'), callback: (event: any) => this.onFieldChange('Icon.Position',event) }
         ]
         
-        this.actiosMenu = [
+        this.actionsMenu = [
             { key: 'duplicate', text: this.translate.instant('EDITOR.CONTENT.DUPLICATE') },
             { key: 'delete', text: this.translate.instant('EDITOR.CONTENT.DELETE') }
         ]
@@ -96,8 +96,8 @@ export class ButtonEditorComponent implements OnInit {
         }
     }
 
-    onEditClick() {
-        this.editClick.emit({id: this.id});
+    onEditClick(event) {
+        this.editClick.emit({id: event ? this.id : -1});
     }
 
     onFieldChange(key, event){

@@ -1,97 +1,99 @@
-<mat-tab-group  #tabGroup class="editor-tabs page-builder-editor-tabs" animationDuration="0ms">
+<mat-tab-group  #tabGroup class="page-builder-editor-tabs" animationDuration="0ms">
     <mat-tab label="{{'EDITOR.TABS.GENERAL' | translate}}">
-        <div>
-            <label class="body-xl bold ellipsis">{{'EDITOR.GENERAL.LAYOUT' | translate}}</label>
-            <pep-slider 
-                    pepResetConfigurationField="ButtonsBarConfig.Structure.MaxColumns" 
-                    [hideReset]="configuration?.ButtonsBarConfig?.Structure?.MaxColumns === configurationSource?.ButtonsBarConfig?.Structure?.MaxColumns"  
-                    [resetHostEvents]="hostEvents"
-                    [label]="'EDITOR.GENERAL.MAX_COLUMNS' | translate" 
-                    [hint]="configuration?.ButtonsBarConfig?.Structure?.MaxColumns?.toString()" 
-                    [minValue]="1" 
-                    [maxValue]="12"
-                    [disabled]="false" 
-                    [value]="configuration?.ButtonsBarConfig?.Structure?.MaxColumns"
-                    [background]="'RGBA(0,0,0,50%)'"
-                    (inputChange)="onFieldChange('MaxColumns',$event)">
-            </pep-slider>
-        </div>
-        <pep-group-buttons-settings 
-                        pepResetConfigurationField="ButtonsBarConfig.Structure.Gap" 
-                        [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Gap === configurationSource?.ButtonsBarConfig?.Structure?.Gap"  
+        <div class="page-builder-editor-tab">
+            <div>
+                <label class="editor-title">{{'EDITOR.GENERAL.LAYOUT' | translate}}</label>
+                <pep-slider 
+                        pepResetConfigurationField="ButtonsBarConfig.Structure.MaxColumns" 
+                        [hideReset]="configuration?.ButtonsBarConfig?.Structure?.MaxColumns === configurationSource?.ButtonsBarConfig?.Structure?.MaxColumns"  
                         [resetHostEvents]="hostEvents"
-                        [groupType]="'sizes'" [subHeader]="'EDITOR.GENERAL.GAP' | translate"
-                        [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Gap" [useNone]="false" [excludeKeys]="['xl','2xl']"
-                        (btnkeyChange)="onFieldChange('Gap',$event)">
-        </pep-group-buttons-settings>
-    
-        <pep-group-buttons-settings pepResetConfigurationField="ButtonsBarConfig.Structure.WidthType" 
-        [hideReset]="configuration?.ButtonsBarConfig?.Structure?.WidthType === configurationSource?.ButtonsBarConfig?.Structure?.WidthType"  
-        [resetHostEvents]="hostEvents"
-        [groupType]="'custom'" [btnsArray]="widthTypes" [header]="'EDITOR.GENERAL.WIDTH' | translate"
-                [subHeader]="'EDITOR.GENERAL.WIDTH_TYPE' | translate"
-                [btnKey]="configuration?.ButtonsBarConfig?.Structure?.WidthType">
-        </pep-group-buttons-settings>
-            
-    
-        <pep-textbox 
-                pepResetConfigurationField="ButtonsBarConfig.Structure.Width" 
-                [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Width === configurationSource?.ButtonsBarConfig?.Structure?.Width"  
-                [resetHostEvents]="hostEvents"
-                [label]="'EDITOR.GENERAL.SET_WIDTH' | translate" type="real" 
-                [disabled]="configuration?.ButtonsBarConfig?.Structure?.WidthType !== 'set'"
-                [value]="configuration?.ButtonsBarConfig?.Structure?.Width || 8" 
-                (valueChange)="onFieldChange('Width',$event)">
-        </pep-textbox>
-
-        <pep-group-buttons-settings pepResetConfigurationField="ButtonsBarConfig.Structure.Alignment.Vertical" 
-                                    [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Vertical === configurationSource?.ButtonsBarConfig?.Structure?.Alignment?.Vertical"  
-                                    [resetHostEvents]="hostEvents"
-                                    [groupType]="'custom'" 
-                                    [btnsArray]="verticalAlign" 
-                                    [header]="'EDITOR.GENERAL.ALIGN' | translate"
-                                    [subHeader]="'EDITOR.GENERAL.VERTICAL_POS' | translate" 
-                                    [excludeKeys]="['center']"
-                                    [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Vertical || 'middle'">
-        </pep-group-buttons-settings>
-
-        <pep-group-buttons-settings pepResetConfigurationField="ButtonsBarConfig.Structure.Alignment.Horizontal" 
-                                    [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Horizontal === configurationSource?.ButtonsBarConfig?.Structure?.Alignment?.Horizontal"  
-                                    [resetHostEvents]="hostEvents"
-                                    [groupType]="'horizontal-align'" 
-                                    [subHeader]="'EDITOR.GENERAL.HORIZONTAL_POS' | translate"
-                                    [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Horizontal || 'left'"
-                                    (btnkeyChange)="onFieldChange('Alignment.Horizontal',$event)">
-        </pep-group-buttons-settings>
-
-        <pep-group-buttons-settings pepResetConfigurationField="ButtonsBarConfig.Structure.Size" 
-                                    [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Size === configurationSource?.ButtonsBarConfig?.Structure?.Size"  
-                                    [resetHostEvents]="hostEvents"
-                                    [groupType]="'sizes'" 
-                                    [header]="'EDITOR.GENERAL.BUTTON_SIZE' | translate" 
-                                    [subHeader]="'EDITOR.GENERAL.CHOOSE_BUTTON_SIZE' | translate"
-                                    [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Size" 
-                                    [useNone]="false" 
-                                    [excludeKeys]="['xs','2xl','xxl']"
-                                    (btnkeyChange)="onFieldChange('Size',$event)">
-        </pep-group-buttons-settings>
-        <div>
-            <pep-field-title [label]="'EDITOR.GENERAL.ON_LOAD_FLOW' | translate"></pep-field-title>
-            <pep-flow-picker-button [flowHostObject]="flowHostObject" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
+                        [label]="'EDITOR.GENERAL.MAX_COLUMNS' | translate" 
+                        [hint]="configuration?.ButtonsBarConfig?.Structure?.MaxColumns?.toString()" 
+                        [minValue]="1" 
+                        [maxValue]="12"
+                        [disabled]="false" 
+                        [value]="configuration?.ButtonsBarConfig?.Structure?.MaxColumns"
+                        [background]="'RGBA(0,0,0,50%)'"
+                        (inputChange)="onFieldChange('MaxColumns',$event)">
+                </pep-slider>
+            </div>
+            <pep-group-buttons-settings 
+                            pepResetConfigurationField="ButtonsBarConfig.Structure.Gap" 
+                            [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Gap === configurationSource?.ButtonsBarConfig?.Structure?.Gap"  
+                            [resetHostEvents]="hostEvents"
+                            [groupType]="'sizes'" [subHeader]="'EDITOR.GENERAL.GAP' | translate"
+                            [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Gap" [useNone]="false" [excludeKeys]="['xl','2xl']"
+                            (btnkeyChange)="onFieldChange('Gap',$event)">
+            </pep-group-buttons-settings>
+            <div class="editor-separator"></div>
+            <pep-group-buttons-settings pepResetConfigurationField="ButtonsBarConfig.Structure.WidthType" 
+            [hideReset]="configuration?.ButtonsBarConfig?.Structure?.WidthType === configurationSource?.ButtonsBarConfig?.Structure?.WidthType"  
+            [resetHostEvents]="hostEvents"
+            [groupType]="'custom'" [btnsArray]="widthTypes" [header]="'EDITOR.GENERAL.WIDTH' | translate"
+                    [subHeader]="'EDITOR.GENERAL.WIDTH_TYPE' | translate"
+                    [btnKey]="configuration?.ButtonsBarConfig?.Structure?.WidthType">
+            </pep-group-buttons-settings>
+            <pep-textbox 
+                    pepResetConfigurationField="ButtonsBarConfig.Structure.Width" 
+                    [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Width === configurationSource?.ButtonsBarConfig?.Structure?.Width"  
+                    [resetHostEvents]="hostEvents"
+                    [label]="'EDITOR.GENERAL.SET_WIDTH' | translate" type="real" 
+                    [disabled]="configuration?.ButtonsBarConfig?.Structure?.WidthType !== 'set'"
+                    [value]="configuration?.ButtonsBarConfig?.Structure?.Width || 8" 
+                    (valueChange)="onFieldChange('Width',$event)">
+            </pep-textbox>
+            <div class="editor-separator"></div>
+            <pep-group-buttons-settings pepResetConfigurationField="ButtonsBarConfig.Structure.Alignment.Vertical" 
+                                        [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Vertical === configurationSource?.ButtonsBarConfig?.Structure?.Alignment?.Vertical"  
+                                        [resetHostEvents]="hostEvents"
+                                        [groupType]="'custom'" 
+                                        [btnsArray]="verticalAlign" 
+                                        [header]="'EDITOR.GENERAL.ALIGN' | translate"
+                                        [subHeader]="'EDITOR.GENERAL.VERTICAL_POS' | translate" 
+                                        [excludeKeys]="['center']"
+                                        [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Vertical || 'middle'">
+            </pep-group-buttons-settings>
+            <pep-group-buttons-settings pepResetConfigurationField="ButtonsBarConfig.Structure.Alignment.Horizontal" 
+                                        [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Horizontal === configurationSource?.ButtonsBarConfig?.Structure?.Alignment?.Horizontal"  
+                                        [resetHostEvents]="hostEvents"
+                                        [groupType]="'horizontal-align'" 
+                                        [subHeader]="'EDITOR.GENERAL.HORIZONTAL_POS' | translate"
+                                        [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Alignment?.Horizontal || 'left'"
+                                        (btnkeyChange)="onFieldChange('Alignment.Horizontal',$event)">
+            </pep-group-buttons-settings>
+            <div class="editor-separator"></div>
+            <pep-group-buttons-settings pepResetConfigurationField="ButtonsBarConfig.Structure.Size" 
+                                        [hideReset]="configuration?.ButtonsBarConfig?.Structure?.Size === configurationSource?.ButtonsBarConfig?.Structure?.Size"  
+                                        [resetHostEvents]="hostEvents"
+                                        [groupType]="'sizes'" 
+                                        [header]="'EDITOR.GENERAL.BUTTON_SIZE' | translate" 
+                                        [subHeader]="'EDITOR.GENERAL.CHOOSE_BUTTON_SIZE' | translate"
+                                        [btnKey]="configuration?.ButtonsBarConfig?.Structure?.Size" 
+                                        [useNone]="false" 
+                                        [excludeKeys]="['xs','2xl','xxl']"
+                                        (btnkeyChange)="onFieldChange('Size',$event)">
+            </pep-group-buttons-settings>
+            <div class="editor-separator"></div>
+            <div>
+                <pep-field-title [label]="'EDITOR.GENERAL.ON_LOAD_FLOW' | translate"></pep-field-title>
+                <pep-flow-picker-button [flowHostObject]="flowHostObject" styleType="regular" (flowChange)="onFlowChange($event)"></pep-flow-picker-button>
+            </div>
         </div>
     </mat-tab>
     <mat-tab cdkDropListGroup label="{{'EDITOR.TABS.CONTENT' | translate}}">
-        <label class="body-xl bold ellipsis">{{'EDITOR.CONTENT.BUTTONS' | translate}}</label>
-        <div *ngIf="configuration?.Buttons" (cdkDropListDropped)="drop($event)"  cdkDropList>
-            <button-editor *ngFor ="let btn of configuration?.Buttons; let currentButton = index" 
-                [id]="currentButton" [selectedButton]="selectedButton" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
-                [isDraggable]="true" (editClick)='onButtonEditClick($event);' (flowChange)='onButtonFlowChanged($event);' (duplicateClick)="onButtonDuplicateClick($event)" (removeClick)='onButtonRemoveClick($event);'
-                [configuration]="btn"
-                cdkDrag  style="cursor: grab;" (cdkDragStarted)="onDragStart($event)" (cdkDragEnded)="onDragEnd($event)">
-            </button-editor>
+        <div class="page-builder-editor-tab">
+            <!-- <label class="editor-title">{{'EDITOR.CONTENT.BUTTONS' | translate}}</label> -->
+            <div *ngIf="configuration?.Buttons" (cdkDropListDropped)="drop($event)" cdkDropList class="available-buttons">
+                <button-editor *ngFor ="let btn of configuration?.Buttons; let currentButton = index" 
+                    [id]="currentButton" [selectedButton]="selectedButton" [showActions]="true" (hostEvents)='onHostObjectChange($event)'
+                    [isDraggable]="true" (editClick)='onButtonEditClick($event);' (flowChange)='onButtonFlowChanged($event);' (duplicateClick)="onButtonDuplicateClick($event)" (removeClick)='onButtonRemoveClick($event);'
+                    [configuration]="btn"
+                    cdkDrag  style="cursor: grab;" (cdkDragStarted)="onDragStart($event)" (cdkDragEnded)="onDragEnd($event)">
+                </button-editor>
+            </div>
+    
+            <pep-button class="add-content-button" value="{{'EDITOR.CONTENT.ADD_BUTTON' | translate}}" styleType="regular" iconName="number_plus" iconPosition="end"
+                    (buttonClick)="addNewButtonClick()"></pep-button>
         </div>
-
-        <pep-button class="add-content-button" value="{{'EDITOR.CONTENT.ADD_BUTTON' | translate}}" styleType="regular" iconName="number_plus" iconPosition="end"
-                (buttonClick)="addNewButtonClick()"></pep-button>
     </mat-tab>
 </mat-tab-group>

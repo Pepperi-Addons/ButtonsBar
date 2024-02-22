@@ -20,6 +20,7 @@ import { PepTextareaModule } from '@pepperi-addons/ngx-lib/textarea';
 import { config } from '../../app.config';
 import { PepIconRegistry, pepIconSystemBin, pepIconSystemMove, pepIconArrowBack, pepIconArrowBackRight, pepIconArrowDown, pepIconArrowDownAlt, pepIconArrowBackLeft, pepIconArrowEither, pepIconArrowLeft, pepIconArrowLeftAlt, pepIconArrowRight,pepIconArrowRightAlt} from '@pepperi-addons/ngx-lib/icon';import { PepFlowPickerButtonModule } from '@pepperi-addons/ngx-composite-lib/flow-picker-button';
 import { PepFieldTitleModule } from '@pepperi-addons/ngx-lib/field-title';
+import { PepDraggableItemsModule } from '@pepperi-addons/ngx-lib/draggable-items';
 
 const pepIcons = [
     pepIconSystemBin,
@@ -51,7 +52,7 @@ const pepIcons = [
         PepFlowPickerButtonModule,
         PepIconPickerModule,
         PepFieldTitleModule,
-
+        PepDraggableItemsModule,
         TranslateModule.forChild({
             loader: {
                 provide: TranslateLoader,
