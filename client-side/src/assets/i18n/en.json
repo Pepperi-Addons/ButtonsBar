@@ -28,6 +28,7 @@
             "BUTTON_SIZE": "Button size",
             "CHOOSE_BUTTON_SIZE": "Choose button size",
             "ON_LOAD_FLOW": "On load flow",
+            "ON_LOAD_FLOW_TITLE": "Choose flow to run on load",
             "FLOW_DESCRIPTION": "Choose on load flow",
             "CHOOSE_FLOW": "Choose flow"
         },
@@ -57,6 +58,7 @@
             "LINK_BADGE": "Badge label",
             "BADGE_COLOR": "Badge color",
             "ON_CLICK_FLOW": "On click flow",
+            "ON_CLICK_FLOW_TITLE": "Choose on click flow",
             "ACTION_KEY": "Action key",
             "FLOW_DESCRIPTION": "Choose flow to run when button click",
             "ADD_BUTTON": "Add button"
