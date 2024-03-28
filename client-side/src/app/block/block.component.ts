@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { IButtonsBar, IHostObject } from '../buttons-bar.model';
 //import { CLIENT_ACTION_ON_BUTTONS_BAR_CLICK } from 'shared';
 
@@ -9,11 +9,15 @@ import { IButtonsBar, IHostObject } from '../buttons-bar.model';
     styleUrls: ['./block.component.scss']
 })
 export class BlockComponent implements OnInit, AfterViewInit {
+    el: ElementRef;
+
     @Input() 
     set hostObject(value: IHostObject){
         if(value?.configuration && Object.keys(value.configuration).length){
-            this.configuration = value?.configuration;
-            this.setBtnWidth();
+            if (JSON.stringify(this.configuration) !== JSON.stringify(value.configuration)) {
+                this.configuration = value.configuration;
+                this.setBtnWidth();
+            }
         }
     }
 
@@ -29,8 +33,10 @@ export class BlockComponent implements OnInit, AfterViewInit {
 
     public btnWidth: string;
     public columnTemplate: string;
-    constructor(private translate: TranslateService) {
-    
+    constructor(private translate: TranslateService,
+                private renderer: Renderer2,
+                el: ElementRef) {
+                    this.el = el;
     }
 
     @HostListener('window:resize')
@@ -87,11 +93,15 @@ export class BlockComponent implements OnInit, AfterViewInit {
     }
     
     setBadgeBackground(){
-        const badgeArr = document.querySelectorAll(".btn-bar-addon .mat-badge-content");
-        badgeArr.forEach((badge, index) => {
-            //badge['style'].backgroundColor = this.configuration.Buttons[index].Badge.Color;
-            badge.setAttribute( 'style', 'background-color: '+ this.configuration.Buttons[index].Badge.Color +' !important' );
-        })
+        if(this.configuration?.Buttons){
+             const buttonsElemArr = this.el.nativeElement.getElementsByClassName('btn-bar-addon');
+             Array.from(buttonsElemArr).forEach((btn: Element, index) => {
+                if(this.configuration.Buttons[index].Badge?.UseBadge && this.configuration.Buttons[index].Badge.Color){
+                    const badge = btn.querySelector(".mat-badge-content");
+                    badge.setAttribute( 'style', 'background-color: '+ this.configuration.Buttons[index].Badge['Color'] +' !important' );
+                }
+             })
+        }
     }
 
     setBtnWidth(){
@@ -117,7 +127,9 @@ export class BlockComponent implements OnInit, AfterViewInit {
                 }
             }
         }
-        //setTimeout(function(){ this.setBadgeBackground() }, 1000);
+        setTimeout(() => {
+            this.setBadgeBackground()
+        }, 0);
     }
 
     getStyles(){
@@ -133,5 +145,7 @@ export class BlockComponent implements OnInit, AfterViewInit {
                 'align-items': this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical == 'middle' ? 'center' : this.configuration.ButtonsBarConfig.Structure.Alignment.Vertical
             };
         }
+
+        //this.setBadgeBackground();
     }
 }
